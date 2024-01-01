@@ -1,0 +1,55 @@
+﻿@using InterviewQuestionPortal.BAL;
+@{
+    ViewData["Title"] = "Add MainTopic";
+    Layout = "~/Views/shared/_Layout.cshtml";
+}
+
+@model InterviewQuestionPortal.Areas.MainTopic.Models.MainTopicModel
+
+<main class="main" id="main">
+    <div class="row">
+        <!-- Basic Layout -->
+        <div class="row">
+            <div class="col-xl">
+                <div class="card mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Add Subject</h5>
+                        @*<small class="text-muted float-end">Default label</small>*@
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div asp-validation-summary="All" class="text-danger"></div>
+                            @Html.HiddenFor(x=>x.MainTopicID)
+  
+                            @*<div class="form-floating form-floating-outline mb-4">
+                                <input readonly type="text" asp-for="MainTopicID" class="form-control" id="basic-default-fullname" placeholder="Enter SubjectName" />
+                                <label for="basic-default-fullname">MainTopicID</label>
+                            </div>*@
+                            <div class="form-floating form-floating-outline mb-4">
+                                <input type="text" asp-for="MainTopicName" class="form-control" id="basic-default-fullname" placeholder="Enter SubjectName" />
+                                <label for="basic-default-fullname">MainTopicName</label>
+                            </div>
+                            
+                            <div>
+                                <label for="basic-default-fullname">SubjectName</label>
+                            <select class="form-select" asp-for="SubjectID" asp-items="@(new SelectList(ViewBag.SubjectList,"SubjectID","SubjectName"))">
+                                <option>Select Subject</option>
+                            </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary" asp-area="MainTopic" asp-controller="MainTopic" asp-action="Save">
+                                <span>Submit</span>
+                                
+                            </button>
+                            <button type="submit" class="btn btn-primary" asp-area="MainTopic" asp-controller="MainTopic" asp-action="MainTopicList">Back</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

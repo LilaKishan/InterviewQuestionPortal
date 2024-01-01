@@ -10,10 +10,7 @@ namespace InterviewQuestionPortal.Areas.MST_User.Controllers
     [Route("MST_User/[controller]/[action]")]
     public class MST_UserController : Controller
     {
-        //public IActionResult Index()
-        //{
-        //    return View();
-        //}
+        
         #region Configuration
 
         private readonly IConfiguration Configuration;
@@ -56,16 +53,7 @@ namespace InterviewQuestionPortal.Areas.MST_User.Controllers
 
             if (ModelState.IsValid)
             {
-                //SqlConnection conn = new SqlConnection(this.configuration.GetConnectionString("myConnectionString"));
-                //conn.Open();
-
-                //SqlCommand sqlCommand = conn.CreateCommand();
-                //sqlCommand.CommandType = CommandType.StoredProcedure;
-                //sqlCommand.CommandText = "PR_SEC_User_SelectByUsernameAndPassword ";
-                //sqlCommand.Parameters.AddWithValue("@UserName", userLoginModel.UserName);
-                //sqlCommand.Parameters.AddWithValue("@Password", userLoginModel.Password);
-
-                //SqlDataReader objSDR = sqlCommand.ExecuteReader();
+                
 
 
                 MST_UserDALBase DALMst_User = new MST_UserDALBase(_webHostEnvironment);
@@ -95,12 +83,7 @@ namespace InterviewQuestionPortal.Areas.MST_User.Controllers
                         }
 
                     }
-                    //else
-                    //{
-
-                    //    TempData["Error"] = ErrorMsg;
-                    //    return RedirectToAction("Login_Page", "SEC_User");
-                    //}
+                   
                     if (HttpContext.Session.GetString("UserName") != null && HttpContext.Session.GetString("Password") != null)
                     {
                         Console.WriteLine("Login Success");

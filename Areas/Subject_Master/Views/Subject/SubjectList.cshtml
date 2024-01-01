@@ -1,0 +1,132 @@
+﻿@{
+    ViewData["Title"] = "Subject List";
+    Layout = "~/Views/shared/_Layout.cshtml";
+}
+@using System.Data;
+@model DataTable;
+@using InterviewQuestionPortal.Areas.Subject_Master.Models;
+
+<!-- Bootstrap Table with Header - Dark -->
+<main class="main" id="main">
+    <div class="body">
+
+        @{
+            if (TempData["SubjectInsertMsg"] != null)
+            {
+                <div class="alert alert-success alert-dismissible" role="alert">
+                    @TempData["SubjectInsertMsg"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+            if (TempData["SubjectupdateMsg"] != null)
+            {
+                <div class="alert alert-warning  alert-dismissible" role="alert">
+                    @TempData["SubjectupdateMsg"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+        }
+
+        <div class="card">
+            <div class="row">
+                <h2 class="col-10 card-header">Subject Table</h2>
+                <div class="col my-4">
+                    <a type="submit" asp-area="Subject_Master" asp-action="AddSubject" asp-controller="Subject" class="btn rounded-pill btn-success">Add Subject</a>
+                </div>
+            </div>
+            <div class="table-responsive text-nowrap">
+                <table class="table table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>SubjectID</th>
+                            <th>SubjectName</th>
+                            <th>Created</th>
+                            <th>Modified</th>
+                            <th>Active</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0">
+                        @foreach (DataRow dr in Model.Rows)
+                        {
+                            <tr>
+                                @*<td>
+                            <i class="mdi mdi-wallet-travel mdi-20px text-danger me-3"></i><span class="fw-medium">Tours Project</span>
+                            </td>*@
+                                <td>@dr["SubjectID"]</td>
+                                <td>@dr["SubjectName"]</td>
+                                <td>@Convert.ToDateTime(dr["Created"]).ToString()</td>
+                                <td>@Convert.ToDateTime(dr["Modified"]).ToString()</td>
+                                @*<td>
+                            <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+                            <li data-bs-toggle="tooltip"
+                            data-popup="tooltip-custom"
+                            data-bs-placement="top"
+                            class="avatar avatar-xs pull-up"
+                            title="Lilian Fuller">
+                            <img src="~/img/avatars/5.png" alt="Avatar" class="rounded-circle" />
+                            </li>
+                            <li data-bs-toggle="tooltip"
+                            data-popup="tooltip-custom"
+                            data-bs-placement="top"
+                            class="avatar avatar-xs pull-up"
+                            title="Sophia Wilkerson">
+                            <img src="~/img/avatars/6.png" alt="Avatar" class="rounded-circle" />
+                            </li>
+                            <li data-bs-toggle="tooltip"
+                            data-popup="tooltip-custom"
+                            data-bs-placement="top"
+                            class="avatar avatar-xs pull-up"
+                            title="Christina Parker">
+                            <img src="~/img/avatars/7.png" alt="Avatar" class="rounded-circle" />
+                            </li>
+                            </ul>
+                            </td>*@
+                                <td><span class="badge rounded-pill bg-label-primary me-1">Active</span></td>
+                                <td><form>
+                                    <input type="hidden" value="@Convert.ToInt32(dr["SubjectID"])" name="SubjectID" />
+                                    <div class="dropdown">
+                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+
+                                            <i class="mdi mdi-dots-vertical"></i>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                           
+                                            <button type="submit"  class="dropdown-item" asp-area="Subject_Master" asp-controller="Subject" asp-action="AddSubject"><i class="mdi mdi-pencil-outline me-1"></i> Edit</button>
+                                                <button onclick="return deleteAlert();" type="submit" class="dropdown-item" asp-area="Subject_Master" asp-controller="Subject" asp-action="SubjectDelete"><i class="mdi mdi-trash-can-outline me-1"></i> Delete</button>
+                                            
+                                        </div>
+                                    </div>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+<!--/ Bootstrap Table with Header Dark -->
+@section Scripts
+    {
+    <script>
+        $(document).ready(function () {
+            $("#sample_1").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $("#sample_2 tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+        function deleteAlert() {
+
+            if (confirm("Are you sure you want to delete?")) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+    </script>
+}
