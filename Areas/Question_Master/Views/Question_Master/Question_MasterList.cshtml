@@ -1,10 +1,10 @@
 ﻿@{
-    ViewData["Title"] = "SubTopic List";
+    ViewData["Title"] = "Question List";
     Layout = "~/Views/shared/_Layout.cshtml";
 }
 @using System.Data;
 @model DataTable;
-@using InterviewQuestionPortal.Areas.SubTopic.Models;
+@using InterviewQuestionPortal.Areas.Question_Master.Models;
 
 
 
@@ -13,17 +13,17 @@
     <div class="body">
 
         @{
-            if (TempData["SubTopicInsertMsg"] != null)
+            if (TempData["Question_MasterInsertMsg"] != null)
             {
                 <div class="alert alert-success alert-dismissible" role="alert">
-                    @TempData["SubTopicInsertMsg"]
+                    @TempData["Question_MasterInsertMsg"]
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             }
-            if (TempData["SubTopicupdateMsg"] != null)
+            if (TempData["Question_MasterupdateMsg"] != null)
             {
                 <div class="alert alert-warning  alert-dismissible" role="alert">
-                    @TempData["SubTopicupdateMsg"]
+                    @TempData["Question_MasterupdateMsg"]
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             }
@@ -31,19 +31,28 @@
 
         <div class="card">
             <div class="row">
-                <h2 class="col-10 card-header">SubTopic Table</h2>
+                <h2 class="col-10 card-header">Question_Master Table</h2>
                 <div class="col my-4">
-                    <a type="submit" asp-area="SubTopic" asp-action="AddSubTopic" asp-controller="SubTopic" class="btn rounded-pill btn-success">Add SubTopic</a>
+                    <a type="submit" asp-area="Question_Master" asp-action="AddQuestion_Master" asp-controller="Question_Master" class="btn rounded-pill btn-success">Add Question</a>
                 </div>
             </div>
             <div class="table-responsive text-nowrap">
                 <table class="table table-hover">
                     <thead class="table-dark">
                         <tr>
-                            <th>SubTopicID</th>
+                            <th>QuestionID</th>
+                            <th>Question</th>
+                            <th>Option_A</th>
+                            <th>Option_B</th>
+                            <th>Option_C</th>
+                            <th>Option_D</th>
+                            <th>TrueOption</th>
+                            <th>CorrectAnswer</th>
+                            <th>Description</th>
                             <th>SubTopicName</th>
                             <th>SubjectName</th>
                             <th>MainTopicName</th>
+                            <th>QuestionType</th>
                             <th>Active</th>
                             <th>Created</th>
                             <th>Modified</th>
@@ -58,18 +67,27 @@
                                 @*<td>
                             <i class="mdi mdi-wallet-travel mdi-20px text-danger me-3"></i><span class="fw-medium">Tours Project</span>
                             </td>*@
-                                <td>@dr["SubTopicID"]</td>
+                                <td>@dr["QuestionID"]</td>
+                                <td>@dr["Question"]</td>
+                                <td>@dr["Option_A"]</td>
+                                <td>@dr["Option_B"]</td>
+                                <td>@dr["Option_C"]</td>
+                                <td>@dr["Option_D"]</td>
+                                <td>@dr["TrueOption"]</td>
+                                <td>@dr["CorrectAnswer"]</td>
+                                <td>@dr["Description"]</td>
                                 <td>@dr["SubTopicName"]</td>
                                 <td>@dr["SubjectName"]</td>
                                 <td>@dr["MainTopicName"]</td>
+                                <td>@dr["QuestionType"]</td>
                                 <td><span class="badge rounded-pill bg-label-primary me-1">Active</span></td>
                                 <td>@Convert.ToDateTime(dr["Created"]).ToString()</td>
                                 <td>@Convert.ToDateTime(dr["Modified"]).ToString()</td>
-                               
-                                
+
+
                                 <td>
                                     <form>
-                                        <input type="hidden" value="@Convert.ToInt32(dr["SubTopicID"])" name="SubTopicID" />
+                                        <input type="hidden" value="@Convert.ToInt32(dr["QuestionID"])" name="QuestionID" />
                                         <div class="dropdown">
                                             <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
 
@@ -77,8 +95,8 @@
                                             </button>
                                             <div class="dropdown-menu">
 
-                                                <button type="submit" class="dropdown-item" asp-area="SubTopic" asp-controller="SubTopic" asp-action="AddSubTopic"><i class="mdi mdi-pencil-outline me-1"></i> Edit</button>
-                                                <button onclick="return deleteAlert();" type="submit" class="dropdown-item" asp-area="SubTopic" asp-controller="SubTopic" asp-action="SubTopicDelete"><i class="mdi mdi-trash-can-outline me-1"></i> Delete</button>
+                                                <button type="submit" class="dropdown-item" asp-area="Question_Master" asp-controller="Question_Master" asp-action="AddQuestion_Master"><i class="mdi mdi-pencil-outline me-1"></i> Edit</button>
+                                                <button onclick="return deleteAlert();" type="submit" class="dropdown-item" asp-area="Question_Master" asp-controller="Question_Master" asp-action="Question_MasterDelete"><i class="mdi mdi-trash-can-outline me-1"></i> Delete</button>
 
                                             </div>
                                         </div>

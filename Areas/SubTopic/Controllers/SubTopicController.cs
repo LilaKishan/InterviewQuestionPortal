@@ -1,4 +1,6 @@
-﻿using InterviewQuestionPortal.BAL;
+﻿using InterviewQuestionPortal.Areas.MainTopic.Models;
+using InterviewQuestionPortal.Areas.SubTopic.Models;
+using InterviewQuestionPortal.BAL;
 using InterviewQuestionPortal.DAL.MainTopic;
 using InterviewQuestionPortal.DAL.SubTopic;
 using Microsoft.AspNetCore.Mvc;
@@ -13,6 +15,7 @@ namespace InterviewQuestionPortal.Areas.SubTopic.Controllers
     {
         SubTopicDALBase dalSubTopic= new SubTopicDALBase();
         SubTopicDAL dals = new SubTopicDAL();
+        MainTopicDAL dalM= new MainTopicDAL();
 
         #region method: SubTopicList
         public IActionResult SubTopicList()
@@ -36,6 +39,50 @@ namespace InterviewQuestionPortal.Areas.SubTopic.Controllers
 
 
         }
+        #endregion
+
+        #region method: AddSubTopic
+        public IActionResult AddSubTopic(int SubTopicID)
+        {
+            SubTopicModel subTopicModel = dalSubTopic.dbo_PR_SubTopic_SelectByID(SubTopicID);
+            if (SubTopicID != 0 && SubTopicID != null)
+            {
+                ViewBag.SubjectList = dalM.SubjectDropDown();
+                ViewBag.MainTopicList = dals.MainTopicDropDown();
+                return View("AddSubTopic", subTopicModel);
+            }
+            else
+            {
+                ViewBag.SubjectList = dalM.SubjectDropDown();
+                ViewBag.MainTopicList = dals.MainTopicDropDown();
+                return View("AddSubTopic");
+            }
+
+        }
+        #endregion
+
+        #region Method: Save
+        public IActionResult Save(SubTopicModel subTopicModel)
+        {
+            //if (ModelState.IsValid)
+            {
+                if (dalSubTopic.dbo_PR_SubTopicTopic_Save(subTopicModel))
+                {
+                    if (subTopicModel.SubTopicID == 0)
+                    {
+                        TempData["SubTopicInsertMsg"] = "SubTopic Inserted Successfully";
+                        return RedirectToAction("SubTopicList");
+                    }
+                    else
+                    {
+                        TempData["SubTopicupdateMsg"] = "SubTopic Updated Successfully";
+                        return RedirectToAction("SubTopicList");
+                    }
+                }
+            }
+            return View("AddMainTopic");
+        }
+
         #endregion
     }
 }

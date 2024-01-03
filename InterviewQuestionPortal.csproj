@@ -9,7 +9,6 @@
   <ItemGroup>
     <Folder Include="Areas\MainTopic\Data\" />
     <Folder Include="Areas\MST_User\Data\" />
-    <Folder Include="Areas\Subject_Master\Data\" />
     <Folder Include="Areas\SubTopic\Data\" />
     <Folder Include="wwwroot\user\photos\" />
   </ItemGroup>

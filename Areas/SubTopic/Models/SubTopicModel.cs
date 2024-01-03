@@ -13,4 +13,9 @@ namespace InterviewQuestionPortal.Areas.SubTopic.Models
         public DateTime? Modified { get; set; }
         public int? UserID { get; set; }
     }
+    public class SubTopicDropDownModel
+    {
+        public int SubTopicID { get; set; }
+        public string? SubTopicName { get; set; }
+    }
 }

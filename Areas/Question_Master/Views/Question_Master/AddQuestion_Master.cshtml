@@ -1,0 +1,111 @@
+﻿@using InterviewQuestionPortal.BAL;
+@{
+    ViewData["Title"] = "Add Question";
+    Layout = "~/Views/shared/_Layout.cshtml";
+}
+
+@model InterviewQuestionPortal.Areas.Question_Master.Models.Question_MasterModel
+
+<main class="main" id="main">
+    <div class="row">
+        <!-- Basic Layout -->
+        <div class="row">
+            <div class="col-xl">
+                <div class="card mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Add Question</h5>
+                        @*<small class="text-muted float-end">Default label</small>*@
+                    </div>
+                    <div class="card-body">
+                        <form >
+                            <div asp-validation-summary="All" class="text-danger"></div>
+                            @Html.HiddenFor(x=>x.QuestionID)
+
+                            @*<div class="form-floating form-floating-outline mb-4">
+                            <input readonly type="text" asp-for="SubTopicID" class="form-control" id="basic-default-fullname" placeholder="Enter SubjectName" />
+                            <label for="basic-default-fullname">SubTopicID</label>
+                            </div>*@
+
+                            @*Question*@
+                            <div class="form-floating form-floating-outline mb-4">
+                                <input type="text" asp-for="Question" class="form-control"  placeholder="Enter Question" />
+                                <label>Question</label>
+                            </div>
+                            @*Option*@
+                            <div class="form-floating form-floating-outline mb-4">
+                                <input type="text" asp-for="Option_A" class="form-control"  placeholder="Enter Option A" />
+                                <label >Option_A</label>
+                            </div>
+                             <div class="form-floating form-floating-outline mb-4">
+                                <input type="text" asp-for="Option_B" class="form-control"  placeholder="Enter Option B" />
+                                <label >Option_B</label>
+                            </div>
+                            <div class="form-floating form-floating-outline mb-4">
+                                <input type="text" asp-for="Option_C" class="form-control"  placeholder="Enter Option C" />
+                                <label >Option_C</label>
+                            </div>
+                            <div class="form-floating form-floating-outline mb-4">
+                                <input type="text" asp-for="Option_D" class="form-control"  placeholder="Enter Option D" />
+                                <label >Option_D</label>
+                            </div>
+                            @*Choiceoption*@
+                            <div class="form-floating form-floating-outline mb-4">
+                                <input type="text" asp-for="TrueOption" class="form-control"  placeholder="Enter Choice" />
+                                <label>TrueOption</label>
+                            </div>
+                            @*CorrectAnswer*@
+                            <div class="form-floating form-floating-outline mb-4">
+                                <input type="text" asp-for="CorrectAnswer" class="form-control"  placeholder="Enter CorrectAnswer" />
+                                <label>CorrectAnswer</label>
+                            </div>
+                            @*Description*@
+                            <div class="form-floating form-floating-outline mb-4">
+                                <textarea  asp-for="Description" class="form-control" placeholder="description" style="height: 60px"></textarea>
+                                <label >Description</label>
+                            </div>
+                            @*Dropdown of questiontype*@
+                            <div class="dropdown">
+                                <label for="basic-default-fullname">QuestionType</label>
+                                <select class="form-select" asp-for="QuestionTypeID" asp-items="@(new SelectList(ViewBag.QuestionTypeList,"QuestionTypeID","QuestionType"))">
+                                    <option>Select QuestionType</option>
+                                </select>
+                            </div>
+                            @*Dropdown of SubjectName*@
+                            <div class="dropdown">
+                                <label for="basic-default-fullname">SubjectName</label>
+                                <select class="form-select" asp-for="SubjectID" asp-items="@(new SelectList(ViewBag.SubjectList,"SubjectID","SubjectName"))">
+                                    <option>Select Subject</option>
+                                </select>
+                            </div>
+                            @*Dropdown of MainTopicName*@
+                            <div class="dropdown">
+                                <label for="basic-default-fullname">MainTopicName</label>
+                                <select class="form-select" asp-for="MainTopicID" asp-items="@(new SelectList(ViewBag.MainTopicList,"MainTopicID","MainTopicName"))">
+                                    <option>Select MainTopic</option>
+                                </select>
+                            </div>
+                            @*Dropdown of SubTopicName*@
+                            <div class="dropdown my-2">
+                                <label for="basic-default-fullname">SubTopicName</label>
+                                <select class="form-select" asp-for="SubTopicID" asp-items="@(new SelectList(ViewBag.SubTopicList,"SubTopicID","SubTopicName"))">
+                                    <option>Select SubTopicName</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary" asp-area="Question_Master" asp-controller="Question_Master" asp-action="Save">
+                                <span>Submit</span>
+
+                            </button>
+                            <button type="submit" class="btn btn-primary" asp-area="Question_Master" asp-controller="Question_Master" asp-action="Question_MasterList">Back</button>
+                            
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

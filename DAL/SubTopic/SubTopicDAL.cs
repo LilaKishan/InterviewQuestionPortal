@@ -3,6 +3,7 @@ using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
 using System.Data.Common;
 using System.Data;
 using InterviewQuestionPortal.Areas.MainTopic.Models;
+using InterviewQuestionPortal.Areas.SubTopic.Models;
 
 namespace InterviewQuestionPortal.DAL.SubTopic
 {
@@ -36,5 +37,36 @@ namespace InterviewQuestionPortal.DAL.SubTopic
             }
         }
         #endregion
+
+        #region SubTopicDropDownModel
+        public List<SubTopicDropDownModel> SubTopicDropDown()
+        {
+            try
+            {
+                SqlDatabase sqlDatabase = new SqlDatabase(ConnectionString);
+                DbCommand dbCommand = sqlDatabase.GetStoredProcCommand("SubTopic_Dropdown");
+                DataTable dataTable = new DataTable();
+                using (IDataReader dataReader = sqlDatabase.ExecuteReader(dbCommand))
+                {
+                    dataTable.Load(dataReader);
+                }
+                List<SubTopicDropDownModel> listOfMainTopic = new List<SubTopicDropDownModel>();
+                foreach (DataRow dataRow in dataTable.Rows)
+                {
+                    SubTopicDropDownModel subTopicDropDownModel = new SubTopicDropDownModel();
+                    subTopicDropDownModel.SubTopicID = Convert.ToInt32(dataRow["SubTopicID"]);
+                    subTopicDropDownModel.SubTopicName = dataRow["SubTopicName"].ToString();
+                    listOfMainTopic.Add(subTopicDropDownModel);
+                }
+                return listOfMainTopic;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        #endregion
+
+
     }
 }

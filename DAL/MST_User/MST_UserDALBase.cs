@@ -92,5 +92,49 @@ namespace InterviewQuestionPortal.DAL.MST_User
             catch (Exception ex) { return false; }
         }
         #endregion
+
+        #region Method: PR_User_SelectAll
+
+        public DataTable PR_MST_USER_SELECTALL()
+        {
+            try
+            {
+                SqlDatabase sqlDatabase = new SqlDatabase(ConnectionString);
+                DbCommand dbCommand = sqlDatabase.GetStoredProcCommand("PR_User_Master_selectall");
+                DataTable dataTable = new DataTable();
+                using (IDataReader dataReader = sqlDatabase.ExecuteReader(dbCommand))
+                {
+                    dataTable.Load(dataReader);
+                }
+                return dataTable;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        #endregion
+
+        #region Method: PR_User_Delete
+
+        public bool PR_MST_USER_DELETEBYID(int UserID)
+        {
+            try
+            {
+                SqlDatabase sqlDatabase = new SqlDatabase(ConnectionString);
+                DbCommand dbCommand = sqlDatabase.GetStoredProcCommand("dbo.PR_User_Master_DeleteByID");
+                sqlDatabase.AddInParameter(dbCommand, "@UserID", DbType.Int32, UserID);
+                bool isSuccess = Convert.ToBoolean(sqlDatabase.ExecuteNonQuery(dbCommand));
+                return isSuccess;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+        }
+
+        #endregion
     }
 }

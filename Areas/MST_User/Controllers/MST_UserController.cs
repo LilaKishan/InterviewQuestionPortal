@@ -1,7 +1,12 @@
 ﻿using InterviewQuestionPortal.Areas.MST_User.Models;
 using InterviewQuestionPortal.DAL.MST_User;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
+using Microsoft.Practices.EnterpriseLibrary.Data;
 using System.Data;
+using System.Data.Common;
+using InterviewQuestionPortal.DAL;
+using System.Drawing;
 
 namespace InterviewQuestionPortal.Areas.MST_User.Controllers
 {
@@ -131,5 +136,32 @@ namespace InterviewQuestionPortal.Areas.MST_User.Controllers
             }
         }
         #endregion
+
+        #region SelectAllUser
+
+        public IActionResult MST_User_SelectAll()
+        {
+            MST_UserDALBase DALMst_User = new MST_UserDALBase(_webHostEnvironment);
+         
+            DataTable dt = DALMst_User.PR_MST_USER_SELECTALL();
+            return View(dt);
+        }
+
+        #endregion
+
+        #region MST_User_DeleteByID
+        public IActionResult MST_User_DeleteByID(int UserID)
+        {
+            MST_UserDALBase DALMst_User = new MST_UserDALBase(_webHostEnvironment);
+            bool isSuccess = DALMst_User.PR_MST_USER_DELETEBYID(UserID);
+            if (isSuccess)
+            {
+                TempData["SuccessMessage"] = "Data Deleted Successfully.";
+                return RedirectToAction("MST_User_SelectAll");
+            }
+            return RedirectToAction("MST_User_SelectAll");
+        }
+        #endregion
+
     }
 }

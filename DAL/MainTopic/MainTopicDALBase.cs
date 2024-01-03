@@ -87,7 +87,7 @@ namespace InterviewQuestionPortal.DAL.MainTopic
         {
             try
             {
-                Console.WriteLine(mainTopicModel.MainTopicID);
+                //Console.WriteLine(mainTopicModel.MainTopicID);
                 if (mainTopicModel.MainTopicID == 0)
                 {
                     DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.Pr_MainTopic_Insert");

@@ -55,6 +55,7 @@
                             </td>*@
                                 <td>@dr["SubjectID"]</td>
                                 <td>@dr["SubjectName"]</td>
+                                <td><span class="badge rounded-pill bg-label-primary me-1">Active</span></td>
                                 <td>@Convert.ToDateTime(dr["Created"]).ToString()</td>
                                 <td>@Convert.ToDateTime(dr["Modified"]).ToString()</td>
                                 @*<td>
@@ -82,7 +83,7 @@
                             </li>
                             </ul>
                             </td>*@
-                                <td><span class="badge rounded-pill bg-label-primary me-1">Active</span></td>
+                               
                                 <td><form>
                                     <input type="hidden" value="@Convert.ToInt32(dr["SubjectID"])" name="SubjectID" />
                                     <div class="dropdown">
