@@ -45,7 +45,7 @@ namespace InterviewQuestionPortal.Areas.QuestionType.Controllers
             {
                 if (dalQuestionType.dbo_QuestionType_Save(questionTypeModel))
                 {
-                    if (questionTypeModel.QuestionTypeID == 0)
+                    if (questionTypeModel.QuestionTypeID == 0 || questionTypeModel.QuestionTypeID==null)
                     {
                         TempData["questionTypeInsertMsg"] = "questionType Inserted Successfully";
                         return RedirectToAction("QuestionTypeList");

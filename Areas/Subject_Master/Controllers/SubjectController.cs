@@ -24,7 +24,7 @@ namespace InterviewQuestionPortal.Areas.Subject_Master.Controllers
         #endregion
 
         #region method: AddSubject
-        public IActionResult AddSubject(int? subjectID)
+        public IActionResult AddSubject(int subjectID)
         {
             SubjectModel subjectModel = dalSubject_Master.dbo_PR_Subject_Master_SelectByID(subjectID);
             if (subjectID != 0 && subjectID!=null)
@@ -43,11 +43,11 @@ namespace InterviewQuestionPortal.Areas.Subject_Master.Controllers
         #region Save
         public IActionResult Save(SubjectModel subjectModel)
         {
-          // if (ModelState.IsValid)
+           if (ModelState.IsValid)
             {
                 if (dalSubject_Master.dbo_Subject_Master_Save(subjectModel))
                 {
-                    if (subjectModel.SubjectID== 0)
+                    if (subjectModel.SubjectID== null || subjectModel.SubjectID == 0)
                     {
                         TempData["SubjectInsertMsg"] = "Subject Inserted Successfully";
                         return RedirectToAction("SubjectList");

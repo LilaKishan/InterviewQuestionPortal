@@ -13,10 +13,11 @@
             <div class="col-xl">
                 <div class="card mb-4">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">Add Subject</h5>
+                        <h5 class="mb-0">Add MainTopic</h5>
                         @*<small class="text-muted float-end">Default label</small>*@
                     </div>
                     <div class="card-body">
+                      
                         <form>
                             <div asp-validation-summary="All" class="text-danger"></div>
                             @Html.HiddenFor(x=>x.MainTopicID)
@@ -25,22 +26,26 @@
                                 <input readonly type="text" asp-for="MainTopicID" class="form-control" id="basic-default-fullname" placeholder="Enter SubjectName" />
                                 <label for="basic-default-fullname">MainTopicID</label>
                             </div>*@
+                            <div class="mb-4">
+                                <label for="basic-default-fullname"><span class="text-danger">*</span>SubjectName</label>
+                                <select required class="form-select" asp-for="SubjectID" asp-items="@(new SelectList(ViewBag.SubjectList,"SubjectID","SubjectName"))">
+                                    <option>Select Subject</option>
+                                </select>
+                                @*<span asp-validation-for="SubjectID" class="text-danger"></span>*@
+                            </div>
+
                             <div class="form-floating form-floating-outline mb-4">
-                                <input type="text" asp-for="MainTopicName" class="form-control" id="basic-default-fullname" placeholder="Enter SubjectName" />
-                                <label for="basic-default-fullname">MainTopicName</label>
+                                <input type="text" asp-for="MainTopicName" class="form-control"  placeholder="Enter MainTopicName" required />
+                                <label for="basic-default-fullname"><span class="text-danger">*</span>MainTopicName</label>
+                                <span asp-validation-for="MainTopicName" class="text-danger"></span>
                             </div>
                             
-                            <div>
-                                <label for="basic-default-fullname">SubjectName</label>
-                            <select class="form-select" asp-for="SubjectID" asp-items="@(new SelectList(ViewBag.SubjectList,"SubjectID","SubjectName"))">
-                                <option>Select Subject</option>
-                            </select>
-                            </div>
+                            
                             <button type="submit" class="btn btn-primary" asp-area="MainTopic" asp-controller="MainTopic" asp-action="Save">
                                 <span>Submit</span>
                                 
                             </button>
-                            <button type="submit" class="btn btn-primary" asp-area="MainTopic" asp-controller="MainTopic" asp-action="MainTopicList">Back</button>
+                            <a class="btn btn-primary" asp-area="MainTopic" asp-controller="MainTopic" asp-action="MainTopicList">Back</a>
                         </form>
                     </div>
                 </div>

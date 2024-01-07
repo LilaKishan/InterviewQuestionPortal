@@ -2,47 +2,113 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+@using InterviewQuestionPortal.Models;
+@using System.Data;
+@model DataTable;
 
-@*<div class="mt-3">
-    <!-- Button trigger modal -->
-    <button type="button"
-            class="btn btn-primary"
-            data-bs-toggle="modal"
-            data-bs-target="#backDropModal">
-        delete
-    </button>
 
-    <!-- Modal -->
-    <div class="modal fade" id="backDropModal" data-bs-backdrop="static" tabindex="-1">
-        <div class="modal-dialog">
-            <form class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="backDropModalTitle">Delete Alert...!!</h4>
-                    <button type="button"
-                            class="btn-close"
-                            data-bs-dismiss="modal"
-                            aria-label="Close"></button>
+<main class="main" id="main">
+    <div class="body">
+        <div class="text-center">
+            <h1 class="display-4 mb-3">Welcome to InterviewQuestionPortal</h1>
+
+            <div class="card me-3 mt-3">
+                <div class="card-header d-flex align-items-center justify-content-between">
+                    <h5 class="card-title m-0 me-2">Record Counts</h5>
+                    <div class="dropdown">
+                        <button class="btn p-0" type="button" id="transactionID" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="mdi mdi-dots-vertical mdi-24px"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="transactionID">
+                            <a class="dropdown-item waves-effect" href="javascript:void(0);">Refresh</a>
+                            <a class="dropdown-item waves-effect" href="javascript:void(0);">Share</a>
+                            <a class="dropdown-item waves-effect" href="javascript:void(0);">Update</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col mb-4 mt-2">
-                            <div class="form-floating form-floating-outline">
-                                <h3> Are you Sure... ??</h3>
+                <div class="card-body">
+                    <div class="row g-3 mb-xl-2">
+                        <div class="col-md">
+                            <div class="d-flex align-items-center">
+                                <div class="avatar">
+                                    <div class="avatar-initial bg-primary rounded shadow">
+                                        <i class="mdi mdi-account-outline mdi-24px"></i>
+                                    </div>
+                                </div>
+                                <div class="ms-3">
+                                    <div class="small mb-1">Users</div>
+                                    <h5 class="mb-0">@Model.Rows[0]["UserCount"]</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="d-flex align-items-center">
+                                <div class="avatar">
+                                    <div class="avatar-initial bg-success rounded shadow">
+                                        <i class="mdi mdi-account-outline mdi-24px"></i>
+                                    </div>
+                                </div>
+                                <div class="ms-3">
+                                    <div class="small mb-1">Subject</div>
+                                    <h5 class="mb-0">@Model.Rows[0]["SubjectCount"]</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="d-flex align-items-center">
+                                <div class="avatar">
+                                    <div class="avatar-initial bg-warning rounded shadow">
+                                        <i class="mdi mdi-cellphone-link mdi-24px"></i>
+                                    </div>
+                                </div>
+                                <div class="ms-3">
+                                    <div class="small mb-1">MainTopic</div>
+                                    <h5 class="mb-0">@Model.Rows[0]["MainTopicCount"]</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="d-flex align-items-center">
+                                <div class="avatar">
+                                    <div class="avatar-initial bg-success rounded shadow">
+                                        <i class="mdi mdi-account-outline mdi-24px"></i>
+                                    </div>
+                                </div>
+                                <div class="ms-3">
+                                    <div class="small mb-1">SubTopic</div>
+                                    <h5 class="mb-0">@Model.Rows[0]["SubTopicCount"]</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="d-flex align-items-center">
+                                <div class="avatar">
+                                    <div class="avatar-initial bg-success rounded shadow">
+                                        <i class="mdi mdi-account-outline mdi-24px"></i>
+                                    </div>
+                                </div>
+                                <div class="ms-3">
+                                    <div class="small mb-1">Question</div>
+                                    <h5 class="mb-0">@Model.Rows[0]["QuestionCount"]</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="d-flex align-items-center">
+                                <div class="avatar">
+                                    <div class="avatar-initial bg-success rounded shadow">
+                                        <i class="mdi mdi-account-outline mdi-24px"></i>
+                                    </div>
+                                </div>
+                                <div class="ms-3">
+                                    <div class="small mb-1">QuestionType</div>
+                                    <h5 class="mb-0">@Model.Rows[0]["QuestionTypeCount"]</h5>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                        No
-                    </button>
-                    <button type="button" class="btn btn-danger">Yes</button>
-                </div>
-            </form>
+            </div>
         </div>
-    </div>
-</div>*@
+        </div>
+    </main>

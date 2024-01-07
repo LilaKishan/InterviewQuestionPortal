@@ -37,7 +37,7 @@ namespace InterviewQuestionPortal.DAL.Subject_Master
             try
             {
                 Console.WriteLine(subjectModel.SubjectID);
-                if (subjectModel.SubjectID == 0)
+                if (subjectModel.SubjectID == null || subjectModel.SubjectID == 0)
                 {
                     DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.Pr_Subject_Master_Insert");
                     sqlDB.AddInParameter(dbCMD, "SubjectName", SqlDbType.VarChar,subjectModel.SubjectName);
@@ -70,7 +70,7 @@ namespace InterviewQuestionPortal.DAL.Subject_Master
 
 
         #region Method : dbo.PR_Subject_Master_SelectByID
-        public SubjectModel dbo_PR_Subject_Master_SelectByID(int? SubjectID)
+        public SubjectModel dbo_PR_Subject_Master_SelectByID(int SubjectID)
         {
             SubjectModel subjectModel = new SubjectModel();
             try

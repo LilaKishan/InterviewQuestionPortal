@@ -37,7 +37,7 @@ namespace InterviewQuestionPortal.DAL.QuestionType
             try
             {
                 Console.WriteLine(questionTypeModel.QuestionTypeID);
-                if (questionTypeModel.QuestionTypeID == 0)
+                if (questionTypeModel.QuestionTypeID == 0 || questionTypeModel.QuestionTypeID == null)
                 {
                     DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.Pr_QuestionType_Insert");
                     sqlDB.AddInParameter(dbCMD, "QuestionType", DbType.String, questionTypeModel.QuestionType);

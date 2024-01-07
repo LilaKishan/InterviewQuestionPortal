@@ -52,11 +52,12 @@
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
+        
             <!-- Menu -->
 
             <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
                 <div class="app-brand demo">
-                    <a href="index.html" class="app-brand-link">
+                    <a asp-action="Index" asp-controller="Home" class="app-brand-link">
                         <span class="app-brand-logo demo me-1">
                             <span style="color: var(--bs-primary)">
                                 <svg width="30" height="24" viewBox="0 0 250 196" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -118,7 +119,17 @@
                 </div>
 
                 <div class="menu-inner-shadow"></div>
+                <!-- Dashboards -->
+                <li class="menu-item active open ">
+                    <a asp-controller="Home" asp-action="Index" class="menu-link">
+                        <i class="menu-icon tf-icons mdi mdi-home-outline"></i>
+                        <div class="text-white">Dashboards</div>
+                    </a>
+                    @*<ul class="menu-sub">
 
+
+                    </ul>*@
+                </li>
                 <ul class="menu-inner py-1">
 
                     <li class="menu-header fw-medium mt-4"><span class="menu-header-text">Tables</span></li>
@@ -132,31 +143,31 @@
                     <li class="menu-item">
                         <a class="menu-link" asp-area="MainTopic" asp-controller="MainTopic" asp-action="MainTopicList">
                             <i class="menu-icon tf-icons mdi mdi-table"></i>
-                            <div data-i18n="Basic">MainTopic</div>
+                            <div data-i18n="Basic">Main Topic</div>
                         </a>
                     </li>
                     <li class="menu-item">
                         <a class="menu-link" asp-area="SubTopic" asp-controller="SubTopic" asp-action="SubTopicList">
                             <i class="menu-icon tf-icons mdi mdi-table"></i>
-                            <div data-i18n="Basic">Subtopic</div>
+                            <div data-i18n="Basic">Sub topic</div>
                         </a>
                     </li>
                     <li class="menu-item">
                         <a class="menu-link" asp-area="Question_Master" asp-controller="Question_Master" asp-action="Question_MasterList">
                             <i class="menu-icon tf-icons mdi mdi-table"></i>
-                            <div data-i18n="Basic">Question_Master</div>
+                            <div data-i18n="Basic">Question Master</div>
                         </a>
                     </li>
                     <li class="menu-item">
                         <a class="menu-link" asp-area="QuestionType" asp-controller="QuestionType" asp-action="QuestionTypeList">
                             <i class="menu-icon tf-icons mdi mdi-table"></i>
-                            <div data-i18n="Basic">Question_Type</div>
+                            <div data-i18n="Basic">QuestionType</div>
                         </a>
                     </li>
                     <li class="menu-item">
                         <a class="menu-link" asp-area="MST_User" asp-controller="MST_User" asp-action="MST_User_SelectAll">
                             <i class="menu-icon tf-icons mdi mdi-table"></i>
-                            <div data-i18n="Basic">User_Master</div>
+                            <div data-i18n="Basic">User Master</div>
                         </a>
                     </li>
                     <!-- Misc -->

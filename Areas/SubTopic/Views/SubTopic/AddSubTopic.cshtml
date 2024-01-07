@@ -21,34 +21,35 @@
                             <div asp-validation-summary="All" class="text-danger"></div>
                             @Html.HiddenFor(x=>x.SubTopicID)
 
-                            @*<div class="form-floating form-floating-outline mb-4">
-                            <input readonly type="text" asp-for="SubTopicID" class="form-control" id="basic-default-fullname" placeholder="Enter SubjectName" />
-                            <label for="basic-default-fullname">SubTopicID</label>
-                            </div>*@
-                            <div class="form-floating form-floating-outline mb-4">
-                                
-                                <input type="text" asp-for="SubTopicName" class="form-control" id="basic-default-fullname" placeholder="Enter SubjectName" />
-                                <label for="basic-default-fullname">SubTopicName</label>
-                            </div>
-
-                            <div class="dropdown" >
-                                <label for="basic-default-fullname">SubjectName</label>
-                                <select class="form-select" asp-for="SubjectID" asp-items="@(new SelectList(ViewBag.SubjectList,"SubjectID","SubjectName"))">
+                            <div class="dropdown mb-4">
+                                <label for="basic-default-fullname"><span class="text-danger">*</span>SubjectName</label>
+                                <select required class="form-select" asp-for="SubjectID" asp-items="@(new SelectList(ViewBag.SubjectList,"SubjectID","SubjectName"))">
                                     <option>Select Subject</option>
                                 </select>
+                                <span asp-validation-for="SubjectID" class="text-danger"></span>
                             </div>
 
-                            <div class="dropdown my-2">
-                                <label for="basic-default-fullname">MainTopicName</label>
-                                <select class="form-select" asp-for="MainTopicID" asp-items="@(new SelectList(ViewBag.MainTopicList,"MainTopicID","MainTopicName"))">
+                            <div class="dropdown mb-4">
+                                <label for="basic-default-fullname"><span class="text-danger">*</span>MainTopicName</label>
+                                <select required class="form-select" asp-for="MainTopicID" asp-items="@(new SelectList(ViewBag.MainTopicList,"MainTopicID","MainTopicName"))">
                                     <option>Select MainTopic</option>
                                 </select>
+                                <span asp-validation-for="MainTopicID" class="text-danger"></span>
                             </div>
+
+                            <div class="form-floating form-floating-outline mb-4">
+                                
+                                <input type="text" asp-for="SubTopicName" class="form-control"  placeholder="Enter SubtopicName" required />
+                                <label for="basic-default-fullname"><span class="text-danger">*</span>SubTopicName</label>
+                                <span asp-validation-for="SubTopicName" class="text-danger"></span>
+                            </div>
+
+                            
                             <button type="submit" class="btn btn-primary" asp-area="SubTopic" asp-controller="SubTopic" asp-action="Save">
                                 <span>Submit</span>
 
                             </button>
-                            <button type="submit" class="btn btn-primary" asp-area="SubTopic" asp-controller="SubTopic" asp-action="SubTopicList">Back</button>
+                            <a class="btn btn-primary" asp-area="SubTopic" asp-controller="SubTopic" asp-action="SubTopicList">Back</a>
                         </form>
                     </div>
                 </div>

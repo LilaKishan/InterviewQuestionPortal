@@ -92,28 +92,28 @@ namespace InterviewQuestionPortal.DAL.Question_Master
         #endregion
 
         #region  Method : dbo.PR_Question_Master_Insert & dbo.PR_Question_Master_UpdateByid  name:dbo_PR_Question_MasterTopic_Save
-        public bool dbo_PR_Question_MasterTopic_Save(Question_MasterModel Question_MasterModel)
+        public bool dbo_PR_Question_MasterTopic_Save(Question_MasterModel question_MasterModel)
         {
             try
             {
-                Console.WriteLine(Question_MasterModel.QuestionID);
-                if (Question_MasterModel.QuestionID == 0)
+                Console.WriteLine(question_MasterModel.QuestionID);
+                if (question_MasterModel.QuestionID == 0 || question_MasterModel.QuestionID == null)
                 {
                     DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.Pr_Question_Master_Insert");
 
-                    sqlDB.AddInParameter(dbCMD, "@Question", DbType.String, Question_MasterModel.Question);
-                    sqlDB.AddInParameter(dbCMD, "@Option_A", DbType.String, Question_MasterModel.Option_A);
-                    sqlDB.AddInParameter(dbCMD, "@Option_B", DbType.String, Question_MasterModel.Option_B);
-                    sqlDB.AddInParameter(dbCMD, "@Option_C", DbType.String, Question_MasterModel.Option_C);
-                    sqlDB.AddInParameter(dbCMD, "@Option_D", DbType.String, Question_MasterModel.Option_D);
-                    sqlDB.AddInParameter(dbCMD, "@TrueOption", DbType.String, Question_MasterModel.TrueOption);
-                    sqlDB.AddInParameter(dbCMD, "@CorrectAnswer", DbType.String, Question_MasterModel.CorrectAnswer);
-                    sqlDB.AddInParameter(dbCMD, "@Description", DbType.String, Question_MasterModel.Description);
-                    sqlDB.AddInParameter(dbCMD, "@QuestionTypeID", DbType.Int32, Question_MasterModel.QuestionTypeID);
-                    sqlDB.AddInParameter(dbCMD, "@SubTopicID", DbType.Int32, Question_MasterModel.SubTopicID);
-                    sqlDB.AddInParameter(dbCMD, "@MainTopicID", DbType.Int32, Question_MasterModel.MainTopicID);
-                    sqlDB.AddInParameter(dbCMD, "@SubjectID", DbType.Int32, Question_MasterModel.SubjectID);
-                    sqlDB.AddInParameter(dbCMD, "@UserID", DbType.Int32, Question_MasterModel.UserID);
+                    sqlDB.AddInParameter(dbCMD, "@Question", DbType.String, question_MasterModel.Question);
+                    sqlDB.AddInParameter(dbCMD, "@Option_A", DbType.String, question_MasterModel.Option_A);
+                    sqlDB.AddInParameter(dbCMD, "@Option_B", DbType.String, question_MasterModel.Option_B);
+                    sqlDB.AddInParameter(dbCMD, "@Option_C", DbType.String, question_MasterModel.Option_C);
+                    sqlDB.AddInParameter(dbCMD, "@Option_D", DbType.String, question_MasterModel.Option_D);
+                    sqlDB.AddInParameter(dbCMD, "@TrueOption", DbType.String, question_MasterModel.TrueOption);
+                    sqlDB.AddInParameter(dbCMD, "@CorrectAnswer", DbType.String, question_MasterModel.CorrectAnswer);
+                    sqlDB.AddInParameter(dbCMD, "@Description", DbType.String, question_MasterModel.Description);
+                    sqlDB.AddInParameter(dbCMD, "@QuestionTypeID", DbType.Int32, question_MasterModel.QuestionTypeID);
+                    sqlDB.AddInParameter(dbCMD, "@SubTopicID", DbType.Int32, question_MasterModel.SubTopicID);
+                    sqlDB.AddInParameter(dbCMD, "@MainTopicID", DbType.Int32, question_MasterModel.MainTopicID);
+                    sqlDB.AddInParameter(dbCMD, "@SubjectID", DbType.Int32, question_MasterModel.SubjectID);
+                    sqlDB.AddInParameter(dbCMD, "@UserID", DbType.Int32, question_MasterModel.UserID);
                     sqlDB.AddInParameter(dbCMD, "@Created", DbType.DateTime, DBNull.Value);
                     sqlDB.AddInParameter(dbCMD, "@Modified", DbType.DateTime, DBNull.Value);
 
@@ -123,20 +123,20 @@ namespace InterviewQuestionPortal.DAL.Question_Master
                 else
                 {
                     DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_Question_Master_UpdateByID");
-                    sqlDB.AddInParameter(dbCMD, "@QuestionID", DbType.Int32, Question_MasterModel.QuestionID);
-                    sqlDB.AddInParameter(dbCMD, "@Question", DbType.String, Question_MasterModel.Question);
-                    sqlDB.AddInParameter(dbCMD, "@Option_A", DbType.String, Question_MasterModel.Option_A);
-                    sqlDB.AddInParameter(dbCMD, "@Option_B", DbType.String, Question_MasterModel.Option_B);
-                    sqlDB.AddInParameter(dbCMD, "@Option_C", DbType.String, Question_MasterModel.Option_C);
-                    sqlDB.AddInParameter(dbCMD, "@Option_D", DbType.String, Question_MasterModel.Option_D);
-                    sqlDB.AddInParameter(dbCMD, "@TrueOption", DbType.String, Question_MasterModel.TrueOption);
-                    sqlDB.AddInParameter(dbCMD, "@CorrectAnswer", DbType.String, Question_MasterModel.CorrectAnswer);
-                    sqlDB.AddInParameter(dbCMD, "@Description", DbType.String, Question_MasterModel.Description);
-                    sqlDB.AddInParameter(dbCMD, "@QuestionTypeID", DbType.Int32, Question_MasterModel.QuestionTypeID);
-                    sqlDB.AddInParameter(dbCMD, "@SubTopicID", DbType.Int32, Question_MasterModel.SubTopicID);
-                    sqlDB.AddInParameter(dbCMD, "@MainTopicID", DbType.Int32, Question_MasterModel.MainTopicID);
-                    sqlDB.AddInParameter(dbCMD, "@SubjectID", DbType.Int32, Question_MasterModel.SubjectID);
-                    sqlDB.AddInParameter(dbCMD, "@UserID", DbType.Int32, Question_MasterModel.UserID);
+                    sqlDB.AddInParameter(dbCMD, "@QuestionID", DbType.Int32, question_MasterModel.QuestionID);
+                    sqlDB.AddInParameter(dbCMD, "@Question", DbType.String, question_MasterModel.Question);
+                    sqlDB.AddInParameter(dbCMD, "@Option_A", DbType.String, question_MasterModel.Option_A);
+                    sqlDB.AddInParameter(dbCMD, "@Option_B", DbType.String, question_MasterModel.Option_B);
+                    sqlDB.AddInParameter(dbCMD, "@Option_C", DbType.String, question_MasterModel.Option_C);
+                    sqlDB.AddInParameter(dbCMD, "@Option_D", DbType.String, question_MasterModel.Option_D);
+                    sqlDB.AddInParameter(dbCMD, "@TrueOption", DbType.String, question_MasterModel.TrueOption);
+                    sqlDB.AddInParameter(dbCMD, "@CorrectAnswer", DbType.String, question_MasterModel.CorrectAnswer);
+                    sqlDB.AddInParameter(dbCMD, "@Description", DbType.String, question_MasterModel.Description);
+                    sqlDB.AddInParameter(dbCMD, "@QuestionTypeID", DbType.Int32, question_MasterModel.QuestionTypeID);
+                    sqlDB.AddInParameter(dbCMD, "@SubTopicID", DbType.Int32, question_MasterModel.SubTopicID);
+                    sqlDB.AddInParameter(dbCMD, "@MainTopicID", DbType.Int32, question_MasterModel.MainTopicID);
+                    sqlDB.AddInParameter(dbCMD, "@SubjectID", DbType.Int32, question_MasterModel.SubjectID);
+                    sqlDB.AddInParameter(dbCMD, "@UserID", DbType.Int32, question_MasterModel.UserID);
                    // sqlDB.AddInParameter(dbCMD, "@Created", DbType.DateTime, DBNull.Value);
                   //  sqlDB.AddInParameter(dbCMD, "@Modified", DbType.DateTime, DBNull.Value);
                   

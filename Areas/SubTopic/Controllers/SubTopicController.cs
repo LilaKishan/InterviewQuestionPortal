@@ -42,7 +42,7 @@ namespace InterviewQuestionPortal.Areas.SubTopic.Controllers
         #endregion
 
         #region method: AddSubTopic
-        public IActionResult AddSubTopic(int SubTopicID)
+        public IActionResult AddSubTopic(int? SubTopicID)
         {
             SubTopicModel subTopicModel = dalSubTopic.dbo_PR_SubTopic_SelectByID(SubTopicID);
             if (SubTopicID != 0 && SubTopicID != null)
@@ -64,11 +64,11 @@ namespace InterviewQuestionPortal.Areas.SubTopic.Controllers
         #region Method: Save
         public IActionResult Save(SubTopicModel subTopicModel)
         {
-            //if (ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 if (dalSubTopic.dbo_PR_SubTopicTopic_Save(subTopicModel))
                 {
-                    if (subTopicModel.SubTopicID == 0)
+                    if (subTopicModel.SubTopicID == 0 || subTopicModel.SubTopicID == null)
                     {
                         TempData["SubTopicInsertMsg"] = "SubTopic Inserted Successfully";
                         return RedirectToAction("SubTopicList");

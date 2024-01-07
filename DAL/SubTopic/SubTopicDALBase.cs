@@ -89,7 +89,7 @@ namespace InterviewQuestionPortal.DAL.SubTopic
             try
             {
                 Console.WriteLine(subTopicModel.MainTopicID);
-                if (subTopicModel.SubTopicID== 0)
+                if (subTopicModel.SubTopicID== 0 || subTopicModel.SubTopicID == null)
                 {
                     DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.Pr_SubTopic_Insert");
 

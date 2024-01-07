@@ -76,8 +76,8 @@ namespace InterviewQuestionPortal.DAL.MST_User
                     sqlDB.AddInParameter(dbCMD1, "@LastName", SqlDbType.VarChar, mST_UserModel.LastName);
                     sqlDB.AddInParameter(dbCMD1, "@ImageURL", SqlDbType.VarChar, mST_UserModel.ImageURL);
                     sqlDB.AddInParameter(dbCMD1, "@Email", SqlDbType.VarChar, mST_UserModel.Email);
-                    //sqlDB.AddInParameter(dbCMD1, "Created", SqlDbType.DateTime, DBNull.Value);
-                    //sqlDB.AddInParameter(dbCMD1, "Modified", SqlDbType.DateTime, DBNull.Value);
+                    sqlDB.AddInParameter(dbCMD1, "Created", SqlDbType.DateTime, DBNull.Value);
+                    sqlDB.AddInParameter(dbCMD1, "Modified", SqlDbType.DateTime, DBNull.Value);
                     Console.WriteLine(dbCMD1);
                     if (Convert.ToBoolean(sqlDB.ExecuteNonQuery(dbCMD1)))
                     {

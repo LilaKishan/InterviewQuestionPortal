@@ -4,7 +4,7 @@ namespace InterviewQuestionPortal.Areas.Question_Master.Models
 {
     public class Question_MasterModel
     {
-        public int QuestionID { get; set; }
+        public int? QuestionID { get; set; }
         [Required]
         public string? Question { get; set; }
         public string? Option_A { get; set; }

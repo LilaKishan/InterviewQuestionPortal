@@ -70,11 +70,11 @@ namespace InterviewQuestionPortal.Areas.Question_Master.Controllers
         #region Method: Save
         public IActionResult Save(Question_MasterModel question_MasterModel)
         {
-            //if (ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 if (dalQuestion_Master.dbo_PR_Question_MasterTopic_Save(question_MasterModel))
                 {
-                    if (question_MasterModel.QuestionID == 0)
+                    if (question_MasterModel.QuestionID == 0 || question_MasterModel.QuestionID == null)
                     {
                         TempData["Question_MasterInsertMsg"] = "Question_Master Inserted Successfully";
                         return RedirectToAction("Question_MasterList");

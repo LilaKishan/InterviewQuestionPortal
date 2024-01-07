@@ -27,60 +27,104 @@
             }
         }
 
-        <div class="card">
-            <div class="row">
-                <h2 class="col-10 card-header">QuestionType Table</h2>
-                <div class="col my-4">
-                    <a type="submit" asp-area="QuestionType" asp-action="AddQuestionType" asp-controller="QuestionType" class="btn rounded-pill btn-success">Add QuestionType</a>
-                </div>
-            </div>
-            <div class="table-responsive text-nowrap">
-                <table class="table table-hover">
-                    <thead class="table-dark">
-                        <tr>
-                            <th>QuestionTypeID</th>
-                            <th>QuestionType</th>
-                            <th>Created</th>
-                            <th>Modified</th>
-                            <th>Active</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody class="table-border-bottom-0">
-                        @foreach (DataRow dr in Model.Rows)
-                        {
+        <div class="card m-3">
+
+            <div class="card-datatable table-responsive m-2">
+                <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+                    <div class="card-header d-flex  rounded-0 flex-wrap py-md-0">
+                        <div class="head-label col-12"><h3 class="card-title mb-3">QuestionType Table</h3></div>
+                        <div class="col-7">
+                            <div id="sample_1_filter" class="dataTables_filter">
+                                <label>
+                                    <input type="search"
+                                           class="form-control" placeholder="Search Category"
+                                           aria-controls="sample_1" id="sample_1">
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-baseline  col-5 justify-content-end">
+                            <div class="dt-action-buttons d-flex align-items-start align-items-md-center justify-content-sm-center mb-3 mb-sm-0 gap-3 pt-0">
+
+                                <div class="dt-buttons d-flex flex-wrap">
+                                    @* <button class="dt-button buttons-collection dropdown-toggle btn btn-label-secondary me-3 waves-effect waves-light"
+                                    tabindex="0" aria-controls="DataTables_Table_0" type="button" aria-haspopup="dialog"
+                                    aria-expanded="false">
+                                    <span>
+                                    <i class="mdi mdi-export-variant me-1"></i><span class="d-none d-sm-inline-block">Export </span>
+                                    </span><span class="dt-down-arrow">▼</span>
+                                    </button>*@
+                                    <a type="button" class="btn btn-primary waves-effect waves-light mb-2" asp-area="QuestionType" asp-controller="QuestionType" asp-action="AddQuestionType">
+                                        Add QuestionType
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <table class="datatables-products table dataTable collapsed" id="DataTables_Table_0"
+                           aria-describedby="DataTables_Table_0_info" style="width: 1168px;">
+                        <thead class="table-light">
                             <tr>
-                                @*<td>
-                            <i class="mdi mdi-wallet-travel mdi-20px text-danger me-3"></i><span class="fw-medium">Tours Project</span>
-                            </td>*@
-                                <td>@dr["QuestionTypeID"]</td>
-                                <td>@dr["QuestionType"]</td>
-                                <td><span class="badge rounded-pill bg-label-primary me-1">Active</span></td>
-                                <td>@Convert.ToDateTime(dr["Created"]).ToString()</td>
-                                <td>@Convert.ToDateTime(dr["Modified"]).ToString()</td>
 
+                                @*<th class="fw-medium">SubjectID</th>*@
+                                <th class="sorting sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                                    colspan="1" style="width: 442px;" aria-label="product: activate to sort column descending"
+                                    aria-sort="ascending">QuestionType</th>
 
-                                <td>
-                                    <form>
-                                        <input type="hidden" value="@Convert.ToInt32(dr["QuestionTypeID"])" name="QuestionTypeID" />
-                                        <div class="dropdown">
-                                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                <th class="fw-medium">Created</th>
+                                <th class="fw-medium">Modified</th>
 
-                                                <i class="mdi mdi-dots-vertical"></i>
-                                            </button>
-                                            <div class="dropdown-menu">
+                                <th rowspan="1"
+                                    colspan="1"> Action</th>
+                            </tr>
+                        <tbody id="sample_2">
+                                @foreach (DataRow dr in Model.Rows)
+                                {
+                                    @*Console.WriteLine(@dr["CategoryImage"]);*@
+                                <tr class="">
+                                        @*<td class="fw-medium">@dr["SubjectID"]</td>*@
 
-                                                <button type="submit" class="dropdown-item" asp-area="QuestionType" asp-controller="QuestionType" asp-action="AddQuestionType"><i class="mdi mdi-pencil-outline me-1"></i> Edit</button>
-                                                <button onclick="return deleteAlert();" type="submit" class="dropdown-item" asp-area="QuestionType" asp-controller="QuestionType" asp-action="QuestionTypeDelete"><i class="mdi mdi-trash-can-outline me-1"></i> Delete</button>
-
+                                    <td class="sorting_1">
+                                        <div class="d-flex justify-content-start align-items-center product-name">
+                                                @*<div class="avatar-wrapper me-3">
+                                        <div class="avatar rounded-2 bg-label-secondary">
+                                        <img src="@Url.Content(dr["CategoryImage"].ToString())"
+                                        class="rounded-2">
+                                        </div>
+                                        </div>*@
+                                            <div class="d-flex flex-column">
+                                                <span class="text-nowrap text-heading fw-medium">
+                                                        @dr["QuestionType"]
+                                                </span>
                                             </div>
                                         </div>
-                                    </form>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+                                    </td>
+                                    <td class="fw-medium">@dr["Created"]</td>
+                                    <td class="fw-medium">@dr["Modified"]</td>
+                                    <td>
+                                        <div class="d-flex">
+                                            <div class="me-2">
+                                                <form method="post" asp-area="QuestionType" asp-controller="QuestionType" asp-action="QuestionTypeDelete">
+                                                    <input type="hidden" value="@Convert.ToInt32(dr["QuestionTypeID"])" name="QuestionTypeID" />
+                                                    <button type="submit" onclick="return deleteAlert();" class="btn btn-danger" value="Delete">Delete</button>
+                                                </form>
+                                            </div>
+                                            <div class="ms-2">
+                                                <form asp-area="QuestionType" asp-controller="QuestionType" asp-action="AddQuestionType">
+                                                    <input type="hidden" value="@Convert.ToInt32(dr["QuestionTypeID"])" name="QuestionTypeID" />
+                                                    <button type="submit" class="btn btn-info" value="Update">Update</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                }
+
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

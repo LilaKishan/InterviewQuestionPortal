@@ -5,7 +5,7 @@ namespace InterviewQuestionPortal.Areas.QuestionType.Models
     public class QuestionTypeModel
     {
        
-            public int QuestionTypeID { get; set; }
+            public int? QuestionTypeID { get; set; }
             [Required]
             public string? QuestionType { get; set; }
             public DateTime? Created { get; set; }

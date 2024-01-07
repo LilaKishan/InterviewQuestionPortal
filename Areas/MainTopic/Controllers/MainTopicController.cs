@@ -40,7 +40,7 @@ namespace InterviewQuestionPortal.Areas.MainTopic.Controllers
         #endregion
 
         #region method: AddMainTopic
-        public IActionResult AddMainTopic(int MainTopicID)
+        public IActionResult AddMainTopic(int? MainTopicID)
         {
             MainTopicModel mainTopicModel= dalMainTopic.dbo_PR_MainTopic_SelectByID(MainTopicID);
             if (MainTopicID != 0 && MainTopicID != null)
@@ -60,11 +60,11 @@ namespace InterviewQuestionPortal.Areas.MainTopic.Controllers
         #region Method: Save
         public IActionResult Save(MainTopicModel mainTopicModel)
         {
-            //if (ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 if (dalMainTopic.dbo_PR_MainTopic_Save(mainTopicModel))
                 {
-                    if (mainTopicModel.MainTopicID == 0)
+                    if (mainTopicModel.MainTopicID == 0 || mainTopicModel.MainTopicID == null)
                     {
                         TempData["MainTopicInsertMsg"] = "MainTopic Inserted Successfully";
                         return RedirectToAction("MainTopicList");

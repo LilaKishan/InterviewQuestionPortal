@@ -4,7 +4,7 @@ namespace InterviewQuestionPortal.Areas.SubTopic.Models
 {
     public class SubTopicModel
     {
-        public int SubTopicID { get; set; }
+        public int? SubTopicID { get; set; }
         [Required]
         public string? SubTopicName { get; set; }
         public int? MainTopicID { get; set; }
