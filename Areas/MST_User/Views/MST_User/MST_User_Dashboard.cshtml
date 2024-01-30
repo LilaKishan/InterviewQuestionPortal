@@ -1,0 +1,117 @@
+﻿﻿@{
+    Layout = "~/Views/Shared/_Layout_User.cshtml";
+}
+
+@using System.Data;
+@model DataTable;
+@using InterviewQuestionPortal.Areas.Question_Master.Models;
+@using Newtonsoft.Json;
+
+<main id="main">
+    <div>
+        Welcome to the dashbord
+    </div>
+    @*<div class="card" style="width: auto;">
+
+    <div class="card-body border-1">
+    <h5 class="card-title">Card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    </div>
+    <form class="list-group m-2">
+    <a class="list-group-item" href="#"> <input type="radio" id="option_A" name="k" value="A"><label for="option_A"> option B</label></a>
+    <a class="list-group-item" href="#"> <input type="radio" id="option_B" name="k" value="A"><label for="option_B">option C</label></a>
+    <a class="list-group-item" href="#">option D</a>
+    </form>
+    <div class="card-body">
+
+    <p>
+    <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+    Link with href
+    </a>
+
+    </p>
+    <div class="collapse" id="collapseExample">
+    <div class="card card-body">
+    Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
+    </div>
+    </div>
+    <a href="#" class="card-link">Another link</a>
+    </div>
+    </div>*@
+
+    @foreach (DataRow dr in Model.Rows)
+    {
+        <div class="card mt-1" style="width: auto;">
+
+            <div class="card-body border-1">
+                <h5 class="card-title">@dr["Question"]</h5>
+                @*<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>*@
+            </div>
+            <div class="list-group m-2">
+                <form>
+                    <a class="list-group-item" href=""><input type="radio" id="@dr["QuestionID"].ToString()_A" name="k" value="A"><label for="@dr["QuestionID"].ToString()_A"><span> A. </span>@dr["Option_A"]</label></a>
+                    <a class="list-group-item" href=""><input type="radio" id="@dr["QuestionID"].ToString()_B" name="k" value="B"><label for="@dr["QuestionID"].ToString()_B"><span> B. </span>@dr["Option_B"]</label></a>
+                    <a class="list-group-item" href=""><input type="radio" id="@dr["QuestionID"].ToString()_C" name="k" value="C"><label for="@dr["QuestionID"].ToString()_C"><span> C. </span>@dr["Option_C"]</label></a>
+                    <a class="list-group-item" href=""><input type="radio" id="@dr["QuestionID"].ToString()_D" name="k" value="D"><label for="@dr["QuestionID"].ToString()_D"><span> D. </span>@dr["Option_D"]</label></a>
+                </form>
+              
+            </div>
+            <div class="card-body">
+
+                <p>
+                    <a class="btn btn-primary" data-bs-toggle="collapse" href="#@dr["QuestionID"].ToString()" role="button" aria-expanded="false" aria-controls="collapseExample">
+                        View Answer
+                    </a>
+
+                </p>
+                <div class="collapse" id="@dr["QuestionID"].ToString()">
+                    <div class="card card-body">
+                        Correct answer : @dr["CorrectAnswer"]
+                        <br>
+                        Explanation : @dr["Description"]
+                    </div>
+                </div>
+                @* <a href="#" class="card-link">Another link</a>*@
+
+            </div>
+
+        </div>
+    }
+</main>
+@*@section Scripts
+    {
+    <script>
+        function ValidateAnswer() {
+            var answer = document.getElementsByName("k");
+       
+            if (k[0].value== ) {
+                alert("Your gender is male");
+            } else if (genders[1].checked == true) {
+                alert("Your gender is female");
+            } else {
+                // no checked
+                var msg = '<span style="color:red;">You must select your gender!</span><br /><br />';
+                document.getElementById('msg').innerHTML = msg;
+                return false;
+            }
+            return true;
+        }
+    </script>
+
+        }
+        }*@
+<!-- Your HTML content here -->
+
+@*
+<script>
+    $(document).ready(function () {
+        // Create DataTable
+        var dataTable = $('#DataTable').DataTable();
+
+        // Get data from DataTable
+        var data = dataTable.rows().data().toArray();
+
+        // Example: Log data to the console
+        console.log(data);
+    });
+</script>*@

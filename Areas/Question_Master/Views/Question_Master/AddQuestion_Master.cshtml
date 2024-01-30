@@ -50,9 +50,9 @@
                                 <span asp-validation-for="MainTopicID" class="text-danger"></span>
                             </div>
                             @*Dropdown of SubTopicName*@
-                            <div class="dropdown mb-4">
+                            <div class="dropdown mb-4 " required>
                                 <label for="basic-default-fullname"><span class="text-danger">*</span>SubTopicName</label>
-                                <select required class="form-select" asp-for="SubTopicID" asp-items="@(new SelectList(ViewBag.SubTopicList,"SubTopicID","SubTopicName"))">
+                                <select  class="form-select" asp-for="SubTopicID" asp-items="@(new SelectList(ViewBag.SubTopicList,"SubTopicID","SubTopicName"))">
                                     <option>Select SubTopicName</option>
                                 </select>
                                 <span asp-validation-for="SubTopicID" class="text-danger"></span>

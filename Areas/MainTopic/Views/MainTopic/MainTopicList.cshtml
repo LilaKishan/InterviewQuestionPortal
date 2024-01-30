@@ -69,9 +69,10 @@
                             <tr>
                                 @*<th class="control sorting_disabled" rowspan="1" colspan="1" style="width: 5px;" aria-label="">
                                 </th>*@
-                                <th class="sorting sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                    colspan="1" style="width: 442px;" aria-label="product: activate to sort column descending"
-                                    aria-sort="ascending">MainTopicName</th>
+                                @* <th class="sorting sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                                colspan="1" style="width: 442px;" aria-label="product: activate to sort column descending"
+                                aria-sort="ascending">MainTopicName</th>*@
+                                <th class="fw-medium">MainTopicName</th>
                                 <th class="fw-medium">SubjectName</th>
                                 <th class="fw-medium">Created</th>
                                 <th class="fw-medium">Modified</th>
@@ -89,15 +90,8 @@
                                 <img src="~/img/icons/misc/plus.png" class="" style="height:20px">
                                 </button>
                                 </td>*@
-                                    <td class="sorting_1">
-                                        <div class="d-flex justify-content-start align-items-center product-name">
-
-                                            <div class="d-flex flex-column">
-                                                <span class="text-nowrap text-heading fw-medium">
-                                                        @dr["MainTopicName"]
-                                                </span>
-                                            </div>
-                                        </div>
+                                    <td class="fw-medium text-heading">
+                                            @dr["MainTopicName"]
                                     </td>
                                     <td class="fw-medium">@dr["SubjectName"]</td>
                                     <td class="fw-medium">@dr["Created"]</td>

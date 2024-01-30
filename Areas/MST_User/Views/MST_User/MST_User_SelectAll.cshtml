@@ -113,7 +113,7 @@
                                         <td>
                                             <div class="d-flex">
                                                 <div class="me-2">
-                                                    <form method="post" asp-area="MST_User" asp-controller="MST_User" asp-action="MST_UserDelete">
+                                                <form method="post" asp-area="MST_User" asp-controller="MST_User" asp-action="MST_User_DeleteByID">
                                                         <input type="hidden" value="@Convert.ToInt32(dr["UserID"])" name="UserID" />
                                                         <button onclick="return deleteAlert();" type="submit" class="btn btn-danger" value="Delete">Delete</button>
                                                     </form>

@@ -13,9 +13,9 @@ namespace InterviewQuestionPortal.Areas.SubTopic.Controllers
     [Route("SubTopic/[controller]/[action]")]
     public class SubTopicController : Controller
     {
-        SubTopicDALBase dalSubTopic= new SubTopicDALBase();
+        SubTopicDALBase dalSubTopic = new SubTopicDALBase();
         SubTopicDAL dals = new SubTopicDAL();
-        MainTopicDAL dalM= new MainTopicDAL();
+        MainTopicDAL dalM = new MainTopicDAL();
 
         #region method: SubTopicList
         public IActionResult SubTopicList()
@@ -42,19 +42,19 @@ namespace InterviewQuestionPortal.Areas.SubTopic.Controllers
         #endregion
 
         #region method: AddSubTopic
-        public IActionResult AddSubTopic(int? SubTopicID)
+        public IActionResult AddSubTopic(int SubTopicID, int SubjectID)
         {
             SubTopicModel subTopicModel = dalSubTopic.dbo_PR_SubTopic_SelectByID(SubTopicID);
             if (SubTopicID != 0 && SubTopicID != null)
             {
                 ViewBag.SubjectList = dalM.SubjectDropDown();
-                ViewBag.MainTopicList = dals.MainTopicDropDown();
-                return View("AddSubTopic", subTopicModel);
+                ViewBag.MainTopicList = dals.MainTopicDropDown(SubjectID);
+                return View("AddSubTopic",subTopicModel);
             }
             else
             {
                 ViewBag.SubjectList = dalM.SubjectDropDown();
-                ViewBag.MainTopicList = dals.MainTopicDropDown();
+                ViewBag.MainTopicList = dals.MainTopicDropDown(SubjectID);
                 return View("AddSubTopic");
             }
 
@@ -81,6 +81,24 @@ namespace InterviewQuestionPortal.Areas.SubTopic.Controllers
                 }
             }
             return View("AddMainTopic");
+        }
+
+        #endregion
+
+        #region method: subtopicDropDown
+        public IActionResult DropDownSubTopic()
+        {
+            var subtopicDD = dals.SubTopicDropDown();
+            return Json(subtopicDD);
+        }
+
+        #endregion
+
+        #region method: maintopicDropDown
+        public IActionResult DropDownMainTopic(int SubjectID)
+        {
+            var maintopicDD = dals.MainTopicDropDown(SubjectID);
+            return Json(maintopicDD);
         }
 
         #endregion

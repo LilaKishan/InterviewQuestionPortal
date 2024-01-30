@@ -19,15 +19,15 @@
             }
             return UserName;
         }
-        public static int? UserId()
+        public static int? UserID()
         {
-            int? UserId = null;
+            int? UserID = null;
 
-            if (_httpContextAccessor.HttpContext.Session.GetString("UserId") != null)
+            if (_httpContextAccessor.HttpContext.Session.GetString("UserID") != null)
             {
-                UserId = Convert.ToInt32(_httpContextAccessor.HttpContext.Session.GetString("UserId").ToString());
+                UserID = Convert.ToInt32(_httpContextAccessor.HttpContext.Session.GetString("UserID").ToString());
             }
-            return UserId;
+            return UserID;
         }
         public static string? ImageURL()
         {

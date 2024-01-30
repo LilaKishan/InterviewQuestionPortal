@@ -136,13 +136,13 @@
                                        id="username"
                                        placeholder="Enter your UserName"
                                        autofocus
-                                       asp-for="UserName"  />
+                                       asp-for="UserName" required />
                                 <label for="username"><span style="color:red">*</span>Username</label>
                                 <span asp-validation-for="UserName" class="text-danger"></span>
                             </div>
                             @*Email*@
                             <div class="form-floating form-floating-outline mb-3">
-                                <input type="text" class="form-control" id="email" placeholder="Enter your Email" asp-for="Email"  />
+                                <input type="text" class="form-control" id="email" placeholder="Enter your Email" asp-for="Email" required />
                                 <label for="email"><span style="color:red">*</span>Email</label>
                                 <span asp-validation-for="Email" class="text-danger"></span>
                             </div>
@@ -155,7 +155,7 @@
                                                class="form-control"
                                                placeholder="Enter Your Password"
                                                aria-describedby="password"
-                                               asp-for="Password"  />
+                                               asp-for="Password" required />
                                         <label for="password"><span style="color:red">*</span>Password</label>
                                         <span asp-validation-for="Password" class="text-danger"></span>
                                     </div>
@@ -169,6 +169,7 @@
                                        id="username"
                                        placeholder="Enter your FirstName"
                                        autofocus
+                                       required
                                        asp-for="FirstName"  />
                                 <label for="username"><span style="color:red">*</span>FirstName</label>
                                 <span asp-validation-for="FirstName" class="text-danger"></span>
@@ -180,7 +181,7 @@
                                        id="username"
                                        placeholder="Enter your LastName"
                                        autofocus
-                                       asp-for="LastName"  />
+                                       asp-for="LastName" required />
                                 <label for="username"><span style="color:red">*</span>LastName</label>
                                 <span asp-validation-for="LastName" class="text-danger"></span>
                             </div>

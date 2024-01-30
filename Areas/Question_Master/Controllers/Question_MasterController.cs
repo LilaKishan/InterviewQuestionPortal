@@ -50,7 +50,7 @@ namespace InterviewQuestionPortal.Areas.Question_Master.Controllers
             if (QuestionID != 0 && QuestionID != null)
             {
                 ViewBag.SubjectList = dalM.SubjectDropDown();
-                ViewBag.MainTopicList = dals.MainTopicDropDown();
+                ViewBag.MainTopicList = dals.MainTopicDropDown(question_MasterModel.SubjectID);
                 ViewBag.SubTopicList = dals.SubTopicDropDown();
                 ViewBag.QuestionTypeList = dalQ.QuestionTypeDropdown();
                 return View("AddQuestion_Master", question_MasterModel);
@@ -58,7 +58,7 @@ namespace InterviewQuestionPortal.Areas.Question_Master.Controllers
             else
             {
                 ViewBag.SubjectList = dalM.SubjectDropDown();
-                ViewBag.MainTopicList = dals.MainTopicDropDown();
+                ViewBag.MainTopicList = dals.MainTopicDropDown(question_MasterModel.SubjectID);
                 ViewBag.SubTopicList = dals.SubTopicDropDown();
                 ViewBag.QuestionTypeList = dalQ.QuestionTypeDropdown();
                 return View("AddQuestion_Master");

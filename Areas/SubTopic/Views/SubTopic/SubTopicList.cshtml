@@ -116,6 +116,7 @@
                                             </div>
                                             <div class="ms-2">
                                                 <form asp-area="SubTopic" asp-controller="SubTopic" asp-action="AddSubTopic">
+                                                    <input type="hidden" value="@Convert.ToInt32(dr["SubjectID"])" name="SubjectID" />
                                                     <input type="hidden" value="@Convert.ToInt32(dr["SubTopicID"])" name="SubTopicID" />
                                                     <button type="submit" class="btn btn-info" value="Update">Update</button>
                                                 </form>
@@ -135,7 +136,7 @@
 <!--/ Bootstrap Table with Header Dark -->
 @section Scripts
     {
-       
+
     <script>
         $(document).ready(function () {
             $("#sample_1").on("keyup", function () {

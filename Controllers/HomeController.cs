@@ -38,7 +38,7 @@ namespace InterviewQuestionPortal.Controllers
 
         }
 
-        public IActionResult Privacy()
+        public IActionResult Index_User()
         {
             return View();
         }

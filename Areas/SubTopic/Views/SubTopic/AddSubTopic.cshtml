@@ -17,35 +17,53 @@
                         @*<small class="text-muted float-end">Default label</small>*@
                     </div>
                     <div class="card-body">
-                        <form>
+                        <form asp-area="SubTopic" enctype="multipart/form-data" asp-controller="SubTopic" asp-action="Save">
                             <div asp-validation-summary="All" class="text-danger"></div>
                             @Html.HiddenFor(x=>x.SubTopicID)
 
                             <div class="dropdown mb-4">
                                 <label for="basic-default-fullname"><span class="text-danger">*</span>SubjectName</label>
-                                <select required class="form-select" asp-for="SubjectID" asp-items="@(new SelectList(ViewBag.SubjectList,"SubjectID","SubjectName"))">
-                                    <option>Select Subject</option>
+                                <select onchange="fnOnStateChange()" required class="form-control" id="SubjectID" asp-for="SubjectID" asp-items="@(new SelectList(ViewBag.SubjectList,"SubjectID","SubjectName"))">
+                                    <option selected disabled value="">Select Subject</option>
                                 </select>
                                 <span asp-validation-for="SubjectID" class="text-danger"></span>
                             </div>
-
                             <div class="dropdown mb-4">
                                 <label for="basic-default-fullname"><span class="text-danger">*</span>MainTopicName</label>
-                                <select required class="form-select" asp-for="MainTopicID" asp-items="@(new SelectList(ViewBag.MainTopicList,"MainTopicID","MainTopicName"))">
-                                    <option>Select MainTopic</option>
+                                <select class="form-control" asp-for="MainTopicID" asp-items="@(new SelectList(ViewBag.MainTopicList, "MainTopicID", "MainTopicName"))">
+                                    <option value="">Select MainTopic</option>
                                 </select>
                                 <span asp-validation-for="MainTopicID" class="text-danger"></span>
                             </div>
 
+                            @*     <div class="dropdown mb-4">
+                            <label for="basic-default-maintopic"><span class="text-danger">*</span>MainTopicName</label>
+                            <select id="MainTopicID" class="form-control" asp-for="MainTopicID" asp-items="@(new SelectList(ViewBag.MainTopicList,"MainTopicID","MainTopicName"))" required>
+                            <option selected value="">Select MainTopic</option>
+                            </select>
+                            <span asp-validation-for="MainTopicID" class="text-danger"></span>
+                            </div>*@
+
+                            @*<div class="col-xl-4">
+                            <select class="form-control" id="MainTopicID" asp-for="MainTopicID" asp-items="@(new SelectList(ViewBag.MainTopicList,"MainTopicID","MainTopicName"))">
+                            <option value="">Select maintopic</option>
+                            </select>
+                            <span asp-validation-for="MainTopicID" class="text-danger"></span>
+                            </div>*@
+                            @*</div>*@
+
+
+
+
                             <div class="form-floating form-floating-outline mb-4">
-                                
-                                <input type="text" asp-for="SubTopicName" class="form-control"  placeholder="Enter SubtopicName" required />
+
+                                <input type="text" asp-for="SubTopicName" class="form-control" placeholder="Enter SubtopicName" required />
                                 <label for="basic-default-fullname"><span class="text-danger">*</span>SubTopicName</label>
                                 <span asp-validation-for="SubTopicName" class="text-danger"></span>
                             </div>
 
-                            
-                            <button type="submit" class="btn btn-primary" asp-area="SubTopic" asp-controller="SubTopic" asp-action="Save">
+
+                            <button type="submit" onclick="temp()" class="btn btn-primary">
                                 <span>Submit</span>
 
                             </button>
@@ -58,7 +76,42 @@
     </div>
 </main>
 @section Scripts{
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+
+    <script>
+        function temp() {
+            var data = document.getElementById("MainTopicID")
+            console.log(data)
+        }
+        function fnOnStateChange() {
+            var SubjectID = $("#SubjectID").val();
+
+            if (SubjectID !== "") {
+                $("#MainTopicID").empty();
+                $("#MainTopicID").append($("<option></option>").val("").html("Select MainTopic"));
+                $.ajax(
+                    {
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        url: "@Url.Action("DropDownMainTopic", "SubTopic")" + "?&SubjectID=" + SubjectID,
+                        data: {},
+                        dataType: "json",
+                        success: function (Result) {
+                            $.each(Result,
+                                function (key, value) {
+                                    console.log(value)
+                                    $("#MainTopicID").append($("<option></option>").val(value.mainTopicID).html(value.mainTopicName));
+                                });
+                        },
+                        error: function (r) {
+                            alert("Error while loading Dropdown.");
+                        }
+                    });
+            }
+            else {
+                $("#MainTopicID").empty();
+                $("#MainTopicID").append($("<option></option>").val("").html("Select MainTopic"));
+            }
+        }
+    </script>
+
 }

@@ -5,7 +5,7 @@ namespace InterviewQuestionPortal.Areas.MST_User.Models
 {
     public class MST_UserModel
     {
-        public int? UserID { get; set; }
+        public int UserID { get; set; }
         [Required]
         [DisplayName("User name")]
         public string UserName { get; set; }

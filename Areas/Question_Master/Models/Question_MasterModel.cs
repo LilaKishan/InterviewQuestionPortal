@@ -17,7 +17,7 @@ namespace InterviewQuestionPortal.Areas.Question_Master.Models
         public int? QuestionTypeID { get; set; }
         public int? SubTopicID { get; set; }
         public int? MainTopicID { get; set; }
-        public int? SubjectID { get; set; }
+        public int SubjectID { get; set; }
         public DateTime? Created { get; set; }
         public DateTime? Modified { get; set; }
         public int? UserID { get; set; }

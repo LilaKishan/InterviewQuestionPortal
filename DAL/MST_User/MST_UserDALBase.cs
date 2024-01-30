@@ -2,20 +2,24 @@
 using System.Data;
 using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
 using InterviewQuestionPortal.Areas.MST_User.Models;
+using InterviewQuestionPortal.Areas.Subject_Master.Models;
+
 
 namespace InterviewQuestionPortal.DAL.MST_User
 {
     public class MST_UserDALBase:DALHelper
     {
-        #region PhotoFile Upload
+        SqlDatabase sqlDB = new SqlDatabase(ConnectionString);
 
-        private readonly IWebHostEnvironment _webHostEnvironment;
-        public MST_UserDALBase(IWebHostEnvironment webHostEnvironment)
-        {
-            _webHostEnvironment = webHostEnvironment;
-        }
+        //#region PhotoFile Upload
 
-        #endregion
+        //private readonly IWebHostEnvironment _webHostEnvironment;
+        //public MST_UserDALBase(IWebHostEnvironment webHostEnvironment)
+        //{
+        //    _webHostEnvironment = webHostEnvironment;
+        //}
+
+        //#endregion
 
         #region dbo_PR_MST_User_SelectByUserNamePassword
         public DataTable dbo_PR_MST_User_SelectByUserNamePassword(string UserName, string Password)
@@ -35,6 +39,42 @@ namespace InterviewQuestionPortal.DAL.MST_User
                 return dt;
             }
             catch (Exception ex) { return null; }
+        }
+        #endregion
+
+        #region dbo_PR_MST_User_SelectByID
+        public DataTable dbo_PR_MST_User_SelectByID(int UserID)
+        {
+         
+
+          
+            try
+            {
+                DbCommand dbCommand = sqlDB.GetStoredProcCommand("dbo.PR_User_Master_SelectByID");
+                sqlDB.AddInParameter(dbCommand, "@UserID", SqlDbType.Int, UserID);
+                DataTable dataTable = new DataTable();
+                MST_UserModel userModel = new MST_UserModel();
+                using (IDataReader dataReader = sqlDB.ExecuteReader(dbCommand))
+                {
+                    dataTable.Load(dataReader);
+                }
+                foreach (DataRow dataRow in dataTable.Rows)
+                {
+                    userModel.UserID = Convert.ToInt32(dataRow["UserID"]);
+                    userModel.UserName = dataRow["UserName"].ToString();
+                    userModel.FirstName = dataRow["FirstName"].ToString();
+                    userModel.LastName = dataRow["LastName"].ToString();
+                    userModel.ImageURL = dataRow["ImageURL"].ToString();
+                    userModel.Email = dataRow["Email"].ToString();
+                    userModel.Created = Convert.ToDateTime(dataRow["Created"].ToString());
+                    userModel.Modified = Convert.ToDateTime(dataRow["Modified"].ToString());
+                }
+                return dataTable;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
         #endregion
 
@@ -60,16 +100,24 @@ namespace InterviewQuestionPortal.DAL.MST_User
                 {// For Upload and get Photo into Database
                     if (mST_UserModel.CoverPhoto != null)
                     {
-                        string folder = "user/photos/";
-                        folder += Guid.NewGuid().ToString() + "_" + mST_UserModel.CoverPhoto.FileName;  // Guid.NewGuid().ToString() for making file name unique
+                        string FilePath = "wwwroot\\user\\photos";
+                        string path = Path.Combine(Directory.GetCurrentDirectory(), FilePath);
+                        if (!Directory.Exists(path))
+                        {
+                            Directory.CreateDirectory(path);
+                        }
+                        string fileNameWithPath = Path.Combine(path, mST_UserModel.CoverPhoto.FileName);
 
-                        mST_UserModel.ImageURL = "/" + folder;
+                        mST_UserModel.ImageURL =  FilePath.Replace("wwwroot\\", "/") + "/" + mST_UserModel.CoverPhoto.FileName;
 
-                        string serverfolder = Path.Combine(_webHostEnvironment.WebRootPath, folder);
-
-                        mST_UserModel.CoverPhoto.CopyToAsync(new FileStream(serverfolder, FileMode.Create));
+                        using (FileStream fileStream = new FileStream(fileNameWithPath, FileMode.Create))
+                        {
+                            mST_UserModel.CoverPhoto.CopyTo(fileStream);
+                        }
                     }
-                    DbCommand dbCMD1 = sqlDB.GetStoredProcCommand("PR_User_Master_Insert");
+                   
+
+                        DbCommand dbCMD1 = sqlDB.GetStoredProcCommand("PR_User_Master_Insert");
                     sqlDB.AddInParameter(dbCMD1, "@UserName", SqlDbType.VarChar, mST_UserModel.UserName);
                     sqlDB.AddInParameter(dbCMD1, "@Password", SqlDbType.VarChar, mST_UserModel.Password);
                     sqlDB.AddInParameter(dbCMD1, "@FirstName", SqlDbType.VarChar, mST_UserModel.FirstName);
@@ -135,6 +183,60 @@ namespace InterviewQuestionPortal.DAL.MST_User
 
         }
 
-        #endregion
+        #endregion
+
+        #region  Method :  dbo.PR_User_Master_UpdateByid  
+        public bool dbo_User_Master_UpdateByID(MST_UserModel mST_UserModel)
+        {
+            try
+            {
+                Console.WriteLine(mST_UserModel.UserID);
+                if (mST_UserModel.UserID != null || mST_UserModel.UserID != 0)
+                {
+                    if (mST_UserModel.CoverPhoto != null)
+                    {
+                        string FilePath = "wwwroot\\Upload";
+                        string path = Path.Combine(Directory.GetCurrentDirectory(), FilePath);
+                        if (!Directory.Exists(path))
+                        {
+                            Directory.CreateDirectory(path);
+                        }
+                        string fileNameWithPath = Path.Combine(path, mST_UserModel.CoverPhoto.FileName);
+
+                        mST_UserModel.ImageURL = "~" + FilePath.Replace("wwwroot\\", "/") + "/" + mST_UserModel.CoverPhoto.FileName;
+
+                        using (FileStream fileStream = new FileStream(fileNameWithPath, FileMode.Create))
+                        {
+                            mST_UserModel.CoverPhoto.CopyTo(fileStream);
+                        }
+                    }
+                    DbCommand dbCMD1 = sqlDB.GetStoredProcCommand("dbo.Pr_User_Master_UpdateByID");
+                    sqlDB.AddInParameter(dbCMD1, "@UserID", DbType.Int32, mST_UserModel.UserID);
+                    sqlDB.AddInParameter(dbCMD1, "@UserName", SqlDbType.VarChar, mST_UserModel.UserName);
+                    sqlDB.AddInParameter(dbCMD1, "@Password", SqlDbType.VarChar, mST_UserModel.Password);
+                    sqlDB.AddInParameter(dbCMD1, "@FirstName", SqlDbType.VarChar, mST_UserModel.FirstName);
+                    sqlDB.AddInParameter(dbCMD1, "@LastName", SqlDbType.VarChar, mST_UserModel.LastName);
+                    sqlDB.AddInParameter(dbCMD1, "@ImageURL", SqlDbType.VarChar, mST_UserModel.ImageURL);
+                    sqlDB.AddInParameter(dbCMD1, "@Email", SqlDbType.VarChar, mST_UserModel.Email);
+                    //sqlDB.AddInParameter(dbCMD1, "Created", SqlDbType.DateTime, DBNull.Value);
+                    //sqlDB.AddInParameter(dbCMD1, "Modified", SqlDbType.DateTime, DBNull.Value);
+                    Console.WriteLine(dbCMD1);
+                    if (Convert.ToBoolean(sqlDB.ExecuteNonQuery(dbCMD1)))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+               return false;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        #endregion
     }
 }

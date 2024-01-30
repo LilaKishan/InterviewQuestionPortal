@@ -52,15 +52,16 @@ namespace InterviewQuestionPortal.DAL.SubTopic
         #endregion
 
         #region Method : dbo.PR_SubTopic_SelectByID
-        public SubTopicModel dbo_PR_SubTopic_SelectByID(int? SubTopicID)
+        public SubTopicModel dbo_PR_SubTopic_SelectByID(int SubTopicID)
         {
             SubTopicModel subTopicModel= new SubTopicModel();
             try
             {
-                DbCommand dbCommand = sqlDB.GetStoredProcCommand("dbo.PR_SubTopic_SelectByID");
-                sqlDB.AddInParameter(dbCommand, "@SubTopicID", DbType.Int32, SubTopicID);
+                SqlDatabase sql = new SqlDatabase(ConnectionString);
+                DbCommand dbCommand = sql.GetStoredProcCommand("dbo.PR_SubTopic_selectByID");
+                sql.AddInParameter(dbCommand, "@SubTopicID", DbType.Int32, SubTopicID);
                 DataTable dataTable = new DataTable();
-                using (IDataReader dataReader = sqlDB.ExecuteReader(dbCommand))
+                using (IDataReader dataReader = sql.ExecuteReader(dbCommand))
                 {
                     dataTable.Load(dataReader);
                 }
@@ -94,8 +95,8 @@ namespace InterviewQuestionPortal.DAL.SubTopic
                     DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.Pr_SubTopic_Insert");
 
                     sqlDB.AddInParameter(dbCMD, "@SubTopicName", DbType.String, subTopicModel.SubTopicName);
-                    sqlDB.AddInParameter(dbCMD, "@MainTopicID", DbType.Int32, subTopicModel.MainTopicID);
                     sqlDB.AddInParameter(dbCMD, "@SubjectID", DbType.Int32, subTopicModel.SubjectID);
+                    sqlDB.AddInParameter(dbCMD, "@MainTopicID", DbType.Int32, subTopicModel.MainTopicID);
                     sqlDB.AddInParameter(dbCMD, "@UserID", DbType.Int32, subTopicModel.UserID);
                     sqlDB.AddInParameter(dbCMD, "@Created", DbType.DateTime, DBNull.Value);
                     sqlDB.AddInParameter(dbCMD, "@Modified", DbType.DateTime, DBNull.Value);
