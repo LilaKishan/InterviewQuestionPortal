@@ -44,22 +44,22 @@ namespace InterviewQuestionPortal.Areas.Question_Master.Controllers
         #endregion
 
         #region method: AddQuestion_Master
-        public IActionResult AddQuestion_Master(int QuestionID)
+        public IActionResult AddQuestion_Master(int QuestionID,int MainTopicID,int SubjectID)
         {
             Question_MasterModel question_MasterModel = dalQuestion_Master.dbo_PR_Question_Master_SelectByID(QuestionID);
             if (QuestionID != 0 && QuestionID != null)
             {
                 ViewBag.SubjectList = dalM.SubjectDropDown();
-                ViewBag.MainTopicList = dals.MainTopicDropDown(question_MasterModel.SubjectID);
-                ViewBag.SubTopicList = dals.SubTopicDropDown();
+                ViewBag.MainTopicList = dals.MainTopicDropDown(SubjectID);
+                ViewBag.SubTopicList = dals.SubTopicDropDown(MainTopicID);
                 ViewBag.QuestionTypeList = dalQ.QuestionTypeDropdown();
                 return View("AddQuestion_Master", question_MasterModel);
             }
             else
             {
                 ViewBag.SubjectList = dalM.SubjectDropDown();
-                ViewBag.MainTopicList = dals.MainTopicDropDown(question_MasterModel.SubjectID);
-                ViewBag.SubTopicList = dals.SubTopicDropDown();
+                ViewBag.MainTopicList = dals.MainTopicDropDown(SubjectID);
+                ViewBag.SubTopicList = dals.SubTopicDropDown(MainTopicID);
                 ViewBag.QuestionTypeList = dalQ.QuestionTypeDropdown();
                 return View("AddQuestion_Master");
             }
@@ -90,5 +90,26 @@ namespace InterviewQuestionPortal.Areas.Question_Master.Controllers
         }
 
         #endregion
+
+        #region method: maintopicDropDown
+        public IActionResult DropDownMainTopic(int SubjectID)
+        {
+            var maintopicDD = dals.MainTopicDropDown(SubjectID);
+            return Json(maintopicDD);
+        }
+
+        #endregion
+
+        #region method: SubtopicDropDown
+        public IActionResult DropDownSubTopic(int MainTopicID)
+        {
+            var subtopicDD = dals.SubTopicDropDown(MainTopicID);
+            return Json(subtopicDD);
+        }
+
+        #endregion
+
+
+
     }
 }

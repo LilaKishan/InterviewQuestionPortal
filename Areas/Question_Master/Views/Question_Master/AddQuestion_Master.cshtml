@@ -17,52 +17,59 @@
                         @*<small class="text-muted float-end">Default label</small>*@
                     </div>
                     <div class="card-body">
-                        <form >
+                        <form enctype="multipart/form-data" asp-area="Question_Master" asp-controller="Question_Master" asp-action="Save">
                             <div asp-validation-summary="All" class="text-danger"></div>
                             @Html.HiddenFor(x=>x.QuestionID)
+                           
 
                             @*<div class="form-floating form-floating-outline mb-4">
                             <input readonly type="text" asp-for="SubTopicID" class="form-control" id="basic-default-fullname" placeholder="Enter SubjectName" />
                             <label for="basic-default-fullname">SubTopicID</label>
                             </div>*@
+
                             @*Dropdown of questiontype*@
                             <div class="dropdown mb-4">
                                 <label for="basic-default-fullname"><span class="text-danger">*</span>QuestionType</label>
                                 <select required class="form-select" asp-for="QuestionTypeID" asp-items="@(new SelectList(ViewBag.QuestionTypeList,"QuestionTypeID","QuestionType"))">
                                     <option>Select QuestionType</option>
                                 </select>
-                                <span asp-validation-for="QuestionID" class="text-danger"></span>
+                                <span asp-validation-for="QuestionTypeID" class="text-danger"></span>
                             </div>
+
                             @*Dropdown of SubjectName*@
                             <div class="dropdown mb-4">
                                 <label for="basic-default-fullname"><span class="text-danger">*</span>SubjectName</label>
-                                <select required class="form-select" asp-for="SubjectID" asp-items="@(new SelectList(ViewBag.SubjectList,"SubjectID","SubjectName"))">
+                                <select id="SubjectID" onchange="fnOnSubjectChange()" required class="form-select" asp-for="SubjectID" asp-items="@(new SelectList(ViewBag.SubjectList,"SubjectID","SubjectName"))">
                                     <option>Select Subject</option>
                                 </select>
                                 <span asp-validation-for="SubjectID" class="text-danger"></span>
                             </div>
+
                             @*Dropdown of MainTopicName*@
                             <div class="dropdown mb-4">
                                 <label for="basic-default-fullname"><span class="text-danger">*</span>MainTopicName</label>
-                                <select required class="form-select" asp-for="MainTopicID" asp-items="@(new SelectList(ViewBag.MainTopicList,"MainTopicID","MainTopicName"))">
-                                    <option>Select MainTopic</option>
+                                <select id="MainTopicID" onclick="fnOnMainTopicChange()" class="form-control" asp-for="MainTopicID" asp-items="@(new SelectList(ViewBag.MainTopicList, "MainTopicID", "MainTopicName"))">
+                                    <option value="">Select MainTopic</option>
                                 </select>
                                 <span asp-validation-for="MainTopicID" class="text-danger"></span>
                             </div>
+
                             @*Dropdown of SubTopicName*@
                             <div class="dropdown mb-4 " required>
                                 <label for="basic-default-fullname"><span class="text-danger">*</span>SubTopicName</label>
-                                <select  class="form-select" asp-for="SubTopicID" asp-items="@(new SelectList(ViewBag.SubTopicList,"SubTopicID","SubTopicName"))">
+                                <select class="form-select" asp-for="SubTopicID" asp-items="@(new SelectList(ViewBag.SubTopicList,"SubTopicID","SubTopicName"))">
                                     <option>Select SubTopicName</option>
                                 </select>
                                 <span asp-validation-for="SubTopicID" class="text-danger"></span>
                             </div>
+
                             @*Question*@
                             <div class="form-floating form-floating-outline mb-4">
                                 <input required type="text" asp-for="Question" class="form-control" placeholder="Enter Question"  />
                                 <label><span class="text-danger">*</span>Question</label>
                                 <span asp-validation-for="Question" class="text-danger"></span>
                             </div>
+
                             @*Option*@
                             <div class="form-floating form-floating-outline mb-4">
                                 <input type="text" asp-for="Option_A" class="form-control" placeholder="Enter Option A" required />
@@ -84,18 +91,21 @@
                                 <label><span class="text-danger">*</span>Option_D</label>
                                 <span asp-validation-for="Option_D" class="text-danger"></span>
                             </div>
+
                             @*Choiceoption*@
                             <div class="form-floating form-floating-outline mb-4">
                                 <input type="text" asp-for="TrueOption" class="form-control" placeholder="Enter Choice" required />
                                 <label><span class="text-danger">*</span>TrueOption</label>
                                 <span asp-validation-for="TrueOption" class="text-danger"></span>
                             </div>
+
                             @*CorrectAnswer*@
                             <div class="form-floating form-floating-outline mb-4">
                                 <input type="text" asp-for="CorrectAnswer" class="form-control" placeholder="Enter CorrectAnswer" required />
                                 <label><span class="text-danger">*</span>CorrectAnswer</label>
                                 <span asp-validation-for="CorrectAnswer" class="text-danger"></span>
                             </div>
+
                             @*Description*@
                             <div class="form-floating form-floating-outline mb-4">
                                 <textarea asp-for="Description" class="form-control" placeholder="description" style="height: 60px" ></textarea>
@@ -103,7 +113,7 @@
                                 <span asp-validation-for="Description" class="text-danger"></span>
                             </div>
                            
-                            <button type="submit" class="btn btn-primary" asp-area="Question_Master" asp-controller="Question_Master" asp-action="Save">
+                            <button type="submit" class="btn btn-primary" >
                                 <span>Submit</span>
 
                             </button>
@@ -117,7 +127,69 @@
     </div>
 </main>
 @section Scripts{
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+
+    <script>
+
+        function fnOnSubjectChange() {
+            var SubjectID = $("#SubjectID").val();
+
+            if (SubjectID !== "") {
+                $("#MainTopicID").empty();
+                $("#MainTopicID").append($("<option></option>").val("").html("Select MainTopic"));
+                $.ajax(
+                    {
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        url: "@Url.Action("DropDownMainTopic", "Question_Master")" + "?&SubjectID=" + SubjectID,
+                        data: {},
+                        dataType: "json",
+                        success: function (Result) {
+                            $.each(Result,
+                                function (key, value) {
+                                    console.log(value)
+                                    $("#MainTopicID").append($("<option></option>").val(value.mainTopicID).html(value.mainTopicName));
+                                });
+                        },
+                        error: function (r) {
+                            alert("Error while loading Dropdown.");
+                        }
+                    });
+            }
+            else {
+                $("#MainTopicID").empty();
+                $("#MainTopicID").append($("<option></option>").val("").html("Select MainTopic"));
+            }
+        }
+        function fnOnMainTopicChange() {
+            var MainTopicID = $("#MainTopicID").val();
+
+            if (MainTopicID !== "") {
+                $("#SubTopicID").empty();
+                $("#SubTopicID").append($("<option></option>").val("").html("Select SubTopic"));
+                $.ajax(
+                    {
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        url: "@Url.Action("DropDownSubTopic", "Question_Master")" + "?&MainTopicID=" + MainTopicID,
+                        data: {},
+                        dataType: "json",
+                        success: function (Result) {
+                            $.each(Result,
+                                function (key, value) {
+                                    console.log(value)
+                                    $("#SubTopicID").append($("<option></option>").val(value.subTopicID).html(value.subTopicName));
+                                });
+                        },
+                        error: function (r) {
+                            alert("Error while loading Dropdown.");
+                        }
+                    });
+            }
+            else {
+                $("#SubTopicID").empty();
+                $("#SubTopicID").append($("<option></option>").val("").html("Select SubTopic"));
+            }
+        }
+    </script>
+
 }

@@ -85,14 +85,7 @@ namespace InterviewQuestionPortal.Areas.SubTopic.Controllers
 
         #endregion
 
-        #region method: subtopicDropDown
-        public IActionResult DropDownSubTopic()
-        {
-            var subtopicDD = dals.SubTopicDropDown();
-            return Json(subtopicDD);
-        }
 
-        #endregion
 
         #region method: maintopicDropDown
         public IActionResult DropDownMainTopic(int SubjectID)

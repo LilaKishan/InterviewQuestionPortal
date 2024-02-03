@@ -18,6 +18,6 @@ namespace InterviewQuestionPortal.Areas.MainTopic.Models
     public class MainTopicDropDownModel
     {
         public int MainTopicID { get; set; }
-        public string? MainTopicName { get; set; }
+        public string MainTopicName { get; set; }
     }
 }

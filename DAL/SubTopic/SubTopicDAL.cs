@@ -17,7 +17,7 @@ namespace InterviewQuestionPortal.DAL.SubTopic
                 SqlDatabase sqlDatabase = new SqlDatabase(ConnectionString);
                 DbCommand dbCommand = sqlDatabase.GetStoredProcCommand("MainTopic_Dropdown");
                 DbCommand dbcmd = sqlDatabase.GetStoredProcCommand("dbo.MainTopic_Dropdown2");
-                sqlDatabase.AddInParameter(dbCommand, "SubjectID", DbType.Int64, SubjectID);
+                sqlDatabase.AddInParameter(dbCommand, "SubjectID", DbType.Int32, SubjectID);
                 DataTable dataTable = new DataTable();
 
 
@@ -44,15 +44,16 @@ namespace InterviewQuestionPortal.DAL.SubTopic
         #endregion
 
         #region SubTopicDropDownModel
-        public List<SubTopicDropDownModel> SubTopicDropDown()
+        public List<SubTopicDropDownModel> SubTopicDropDown(int MainTopicID)
         {
             try
             {
                 SqlDatabase sqlDatabase = new SqlDatabase(ConnectionString);
                 DbCommand dbCommand = sqlDatabase.GetStoredProcCommand("SubTopic_Dropdown");
-                //sqlDatabase.AddInParameter(dbCommand, "SubjectID", DbType.Int64, SubjectID);
+                DbCommand dbCommand2 = sqlDatabase.GetStoredProcCommand("SubTopic_Dropdown2");
+                sqlDatabase.AddInParameter(dbCommand, "MainTopicID", DbType.Int64, MainTopicID);
                 DataTable dataTable = new DataTable();
-                using (IDataReader dataReader = sqlDatabase.ExecuteReader(dbCommand))
+                using (IDataReader dataReader = sqlDatabase.ExecuteReader(MainTopicID != 0 ? dbCommand : dbCommand2))
                 {
                     dataTable.Load(dataReader);
                 }

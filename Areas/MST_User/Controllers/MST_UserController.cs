@@ -1,14 +1,8 @@
 ﻿using InterviewQuestionPortal.Areas.MST_User.Models;
 using InterviewQuestionPortal.DAL.MST_User;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
-using Microsoft.Practices.EnterpriseLibrary.Data;
-using System.Data;
-using System.Data.Common;
-using InterviewQuestionPortal.DAL;
-using System.Drawing;
-using InterviewQuestionPortal.Areas.Subject_Master.Models;
 using InterviewQuestionPortal.DAL.Question_Master;
+using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace InterviewQuestionPortal.Areas.MST_User.Controllers
 {
@@ -33,6 +27,7 @@ namespace InterviewQuestionPortal.Areas.MST_User.Controllers
         MST_UserDALBase DALMst_User = new MST_UserDALBase();
         //MST_UserDALBase DALMst_User = new MST_UserDALBase(_webHostEnvironment);
         // MST_UserDAL Mst_UserDAL = new MST_UserDAL(_webHostEnvironment);
+
         public IActionResult Login_Page()
         {
             return View();
@@ -138,8 +133,6 @@ namespace InterviewQuestionPortal.Areas.MST_User.Controllers
             return View(userdata);
         }
 
-        
-
         #region  Register
         public IActionResult Register(MST_UserModel mst_UserModel)
         {
@@ -188,7 +181,7 @@ namespace InterviewQuestionPortal.Areas.MST_User.Controllers
         public IActionResult Save(MST_UserModel userModel)
         {
             //DALMst_User.dbo_PR_MST_User_SelectByID(UserID);
-            //if (ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 if (DALMst_User.dbo_User_Master_UpdateByID(userModel))
                 {

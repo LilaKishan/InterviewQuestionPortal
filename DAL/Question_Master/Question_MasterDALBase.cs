@@ -111,7 +111,7 @@ namespace InterviewQuestionPortal.DAL.Question_Master
                     sqlDB.AddInParameter(dbCMD, "@Description", DbType.String, question_MasterModel.Description);
                     sqlDB.AddInParameter(dbCMD, "@QuestionTypeID", DbType.Int32, question_MasterModel.QuestionTypeID);
                     sqlDB.AddInParameter(dbCMD, "@SubTopicID", DbType.Int32, question_MasterModel.SubTopicID);
-                    sqlDB.AddInParameter(dbCMD, "@MainTopicID", DbType.Int32, question_MasterModel.MainTopicID);
+                    sqlDB.AddInParameter(dbCMD, "@MainTopicID", DbType.Int32,question_MasterModel.MainTopicID);
                     sqlDB.AddInParameter(dbCMD, "@SubjectID", DbType.Int32, question_MasterModel.SubjectID);
                     sqlDB.AddInParameter(dbCMD, "@UserID", DbType.Int32, question_MasterModel.UserID);
                     sqlDB.AddInParameter(dbCMD, "@Created", DbType.DateTime, DBNull.Value);
