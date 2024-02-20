@@ -106,26 +106,24 @@ namespace InterviewQuestionPortal.Areas.MST_User.Controllers
             return RedirectToAction("Index", "Home");
         }
         #endregion
-        public IActionResult MST_User_Dashboard()
+        public IActionResult MST_User_Dashboard_Question()
         {
             
             Question_MasterDALBase dalQuestion_Master = new Question_MasterDALBase();
             DataTable dtQuestion_Master = dalQuestion_Master.dbo_PR_Question_Master_SelectAll();
-            /////*            TempData["data"] = JsonConvert.SerializeObject(dtQuestion_Master);*/
-            //if (TempData["dict"] == null)
-            //    TempData["dict"] = new Dictionary<dynamic, dynamic>();
-            return View("MST_User_Dashboard", dtQuestion_Master);
+           
+            return View("MST_User_Dashboard_Question", dtQuestion_Master);
         }
 
         public IActionResult MST_UserRegister()
         {
             return View();
         }
-        public IActionResult User_Account(int UserID)
+        public IActionResult User_Account(int? UserID)
         {
-            DataTable userdata = DALMst_User.dbo_PR_MST_User_SelectByID(UserID);
+            //DataTable userdata = DALMst_User.dbo_PR_MST_User_SelectByID(UserID);
 
-            return View(userdata);
+            return View();
         }
 
         #region  Register
@@ -169,60 +167,31 @@ namespace InterviewQuestionPortal.Areas.MST_User.Controllers
         #endregion
 
         #region UpdateBYID
-        public IActionResult Save(MST_UserModel userModel)
-        {
-            //DALMst_User.dbo_PR_MST_User_SelectByID(UserID);
-            if (ModelState.IsValid)
-            {
-                if (DALMst_User.dbo_User_Master_UpdateByID(userModel))
-                {
-                    if (userModel.UserID != null || userModel.UserID != 0)
-                    {
-                        TempData["AccountupdateMsg"] = "Account detail Updated Successfully";
-                        Console.WriteLine("Account detail Updated Successfully");
-                        return RedirectToAction("User_Account");
+        //public IActionResult Save(MST_UserModel userModel)
+        //{
+        //    //DALMst_User.dbo_PR_MST_User_SelectByID(UserID);
+        //    if (ModelState.IsValid)
+        //    {
+        //        if (DALMst_User.dbo_User_Master_UpdateByID(userModel))
+        //        {
+        //            if (userModel.UserID != null || userModel.UserID != 0)
+        //            {
+        //                TempData["AccountupdateMsg"] = "Account detail Updated Successfully";
+        //                Console.WriteLine("Account detail Updated Successfully");
+        //                return RedirectToAction("User_Account");
 
-                    }
+        //            }
 
-                    return RedirectToAction("User_Account");
+        //            return RedirectToAction("User_Account");
 
-                }
-            }
-            return View("User_Account");
-        }
+        //        }
+        //    }
+        //    return View("User_Account");
+        //}
 
         #endregion
 
-        private static Dictionary<dynamic,dynamic> Maindict= new Dictionary<dynamic, dynamic>();
 
-        #region
-        public IActionResult validation(int QuestionID)
-        {
-            ViewBag.index = QuestionID;
-            DataTable dt = (new Question_MasterDALBase()).dbo_PR_Question_Master_SelectAll();
-            var model = dt.Rows[QuestionID];
-            if(!Maindict.ContainsKey(QuestionID))
-            Maindict.Add(QuestionID, model["CorrectAnswer"]);
-            TempData["dict"] = Maindict;
-            return View("MST_User_Dashboard", dt);
-        }
-        #endregion
-
-        #region method: Question_MasterList
-        public IActionResult CorrectAnswer(string ChooseOption,int QuestionID)
-        {
-            Question_MasterDALBase dalQuestion_Master = new Question_MasterDALBase();
-            Question_MasterModel dtQuestion_Master = dalQuestion_Master.dbo_PR_Question_Master_SelectByID(QuestionID);
-            if (ChooseOption== dtQuestion_Master.CorrectAnswer)
-            {
-                ViewBag.CorrectAnswer = true;
-            }
-            else
-            {
-                ViewBag.CorrectAnswer = false;
-            }
-            return View("MST_User_Dashboard", dtQuestion_Master);
-        }
-        #endregion
+       
     }
 }

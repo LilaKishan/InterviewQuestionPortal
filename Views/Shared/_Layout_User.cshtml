@@ -70,7 +70,7 @@
                 <ul class="menu-inner py-1">
                     <!-- Dashboards -->
                     <li class="menu-item active open ">
-                        <a asp-area="MST_User" asp-controller="MST_User" asp-action="MST_User_Dashboard" class="menu-link">
+                        <a asp-area="MST_User" asp-controller="MST_User" asp-action="MST_User_Dashboard_Question" class="menu-link">
                             <i class="menu-icon tf-icons mdi mdi-home-outline"></i>
                             <div class="text-white ms-1">Dashboards</div>
                         </a>
@@ -82,10 +82,9 @@
 
                     @*Transaction*@
                     <li class="menu-item active mb-2 mt-3" onclick="class_avtive">
-                        <a @*asp-area="ADMN_Category" asp-controller="Admin_MST_Category" asp-action="Admin_MST_CategoryList"*@
-                           class="menu-link">
-                            <i class="menu-icon tf-icons mdi mdi-table"></i>
-                            <div class="ms-3">Subject</div>
+                        <a asp-area="MST_User" asp-controller="MST_User" asp-action="MST_User_Dashboard_Question" class="menu-link">
+                            <i class="menu-icon tf-icons mdi mdi-home-outline"></i>
+                            <div class="text-white ms-1">Questions</div>
                         </a>
                     </li>
 

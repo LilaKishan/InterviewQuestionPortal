@@ -14,31 +14,23 @@
 
     @{
         List<String> options = new List<string> { "A", "B", "C", "D" };
-        bool j = false;
+        var Index = 0;
     }
     @foreach (DataRow dr in Model.Rows)
     {
-        
-        @* index++;*@
+        Index++;
+
         <div class="card mt-1" style="width: auto;">
 
             <div class="card-body border-1">
-                <h5 class="card-title">@dr["Question"]</h5>
+                <h5 class="card-title"><span>@Index.</span> @dr["Question"]</h5>
 
             </div>
             <div class="list-group m-2">
                 @foreach (var i in options)
                 {
-                    if (i.ToLower() == dr["CorrectAnswer"].ToString().ToLower())
-                    {
-                        j = true;
-                        Console.WriteLine(j);
-                    }
-                    <a class="list-group-item  "><label class="@(i.ToLower() == dr["CorrectAnswer"].ToString().ToLower()?" text-success":"text-dark")" for="@dr["QuestionID"].ToString()_@i"><span> @i </span>@dr["Option_"+@i]</label></a>
-                    j = false;
+                    <a class="list-group-item  "><label class="@(i.ToLower() == dr["CorrectAnswer"].ToString().ToLower()?" text-success":"text-dark")" for="@dr["QuestionID"].ToString()_@i"><span> @i. </span>@dr["Option_"+@i]</label></a>
                 }
-               
-
             </div>
 
             <div class="card-body">
@@ -47,7 +39,6 @@
                     <a class="btn btn-primary" data-bs-toggle="collapse" href="#@dr["QuestionID"].ToString()" role="button" aria-expanded="false" aria-controls="collapseExample">
                         Explanation
                     </a>
-
                 </p>
 
                 <div class="collapse" id="@dr["QuestionID"].ToString()">
