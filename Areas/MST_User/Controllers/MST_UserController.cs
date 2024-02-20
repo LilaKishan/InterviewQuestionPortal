@@ -1,7 +1,9 @@
 ﻿using InterviewQuestionPortal.Areas.MST_User.Models;
+using InterviewQuestionPortal.Areas.Question_Master.Models;
 using InterviewQuestionPortal.DAL.MST_User;
 using InterviewQuestionPortal.DAL.Question_Master;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.Data;
 
 namespace InterviewQuestionPortal.Areas.MST_User.Controllers
@@ -12,18 +14,7 @@ namespace InterviewQuestionPortal.Areas.MST_User.Controllers
     public class MST_UserController : Controller
     {
 
-        //#region Configuration
 
-        //private readonly IConfiguration Configuration;
-        //private readonly IWebHostEnvironment _webHostEnvironment;
-
-        //public MST_UserController(IConfiguration _Configuration, IWebHostEnvironment webHostEnvironment)
-        //{
-        //    Configuration = _Configuration;
-        //    _webHostEnvironment = webHostEnvironment;
-        //}
-
-        //#endregion
         MST_UserDALBase DALMst_User = new MST_UserDALBase();
         //MST_UserDALBase DALMst_User = new MST_UserDALBase(_webHostEnvironment);
         // MST_UserDAL Mst_UserDAL = new MST_UserDAL(_webHostEnvironment);
@@ -117,8 +108,12 @@ namespace InterviewQuestionPortal.Areas.MST_User.Controllers
         #endregion
         public IActionResult MST_User_Dashboard()
         {
+            
             Question_MasterDALBase dalQuestion_Master = new Question_MasterDALBase();
             DataTable dtQuestion_Master = dalQuestion_Master.dbo_PR_Question_Master_SelectAll();
+            /////*            TempData["data"] = JsonConvert.SerializeObject(dtQuestion_Master);*/
+            //if (TempData["dict"] == null)
+            //    TempData["dict"] = new Dictionary<dynamic, dynamic>();
             return View("MST_User_Dashboard", dtQuestion_Master);
         }
 
@@ -152,11 +147,8 @@ namespace InterviewQuestionPortal.Areas.MST_User.Controllers
         #endregion
 
         #region SelectAllUser
-
         public IActionResult MST_User_SelectAll()
         {
-
-
             DataTable dt = DALMst_User.PR_MST_USER_SELECTALL();
             return View(dt);
         }
@@ -166,7 +158,6 @@ namespace InterviewQuestionPortal.Areas.MST_User.Controllers
         #region MST_User_DeleteByID
         public IActionResult MST_User_DeleteByID(int UserID)
         {
-
             bool isSuccess = DALMst_User.PR_MST_USER_DELETEBYID(UserID);
             if (isSuccess)
             {
@@ -202,14 +193,36 @@ namespace InterviewQuestionPortal.Areas.MST_User.Controllers
 
         #endregion
 
+        private static Dictionary<dynamic,dynamic> Maindict= new Dictionary<dynamic, dynamic>();
 
-        //#region method: Question_MasterList
-        //public IActionResult Question_MasterList()
-        //{
-        //    Question_MasterDALBase dalQuestion_Master = new Question_MasterDALBase();
-        //    DataTable dtQuestion_Master = dalQuestion_Master.dbo_PR_Question_Master_SelectAll();
-        //    return View("MST_User_Dashboard", dtQuestion_Master);
-        //}
-        //#endregion
+        #region
+        public IActionResult validation(int QuestionID)
+        {
+            ViewBag.index = QuestionID;
+            DataTable dt = (new Question_MasterDALBase()).dbo_PR_Question_Master_SelectAll();
+            var model = dt.Rows[QuestionID];
+            if(!Maindict.ContainsKey(QuestionID))
+            Maindict.Add(QuestionID, model["CorrectAnswer"]);
+            TempData["dict"] = Maindict;
+            return View("MST_User_Dashboard", dt);
+        }
+        #endregion
+
+        #region method: Question_MasterList
+        public IActionResult CorrectAnswer(string ChooseOption,int QuestionID)
+        {
+            Question_MasterDALBase dalQuestion_Master = new Question_MasterDALBase();
+            Question_MasterModel dtQuestion_Master = dalQuestion_Master.dbo_PR_Question_Master_SelectByID(QuestionID);
+            if (ChooseOption== dtQuestion_Master.CorrectAnswer)
+            {
+                ViewBag.CorrectAnswer = true;
+            }
+            else
+            {
+                ViewBag.CorrectAnswer = false;
+            }
+            return View("MST_User_Dashboard", dtQuestion_Master);
+        }
+        #endregion
     }
 }

@@ -6,9 +6,11 @@ using InterviewQuestionPortal.DAL.QuestionType;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
 using InterviewQuestionPortal.DAL.SubTopic;
+using Microsoft.AspNetCore.Authorization;
 
 namespace InterviewQuestionPortal.Areas.Question_Master.Controllers
 {
+    
     [CheckAccess]
     [Area("Question_Master")]
     [Route("Question_Master/[controller]/[action]")]
@@ -23,6 +25,7 @@ namespace InterviewQuestionPortal.Areas.Question_Master.Controllers
         public IActionResult Question_MasterList()
         {
             DataTable dtQuestion_Master = dalQuestion_Master.dbo_PR_Question_Master_SelectAll();
+           
             return View("Question_MasterList", dtQuestion_Master);
         }
         #endregion
@@ -108,8 +111,6 @@ namespace InterviewQuestionPortal.Areas.Question_Master.Controllers
         }
 
         #endregion
-
-
 
     }
 }

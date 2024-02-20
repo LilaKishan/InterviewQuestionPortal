@@ -105,13 +105,13 @@
                                     <td class="fw-medium align-items-centerjustify-content-start">
                                         <div class="d-flex">
                                             <div class="me-2">
-                                                <form method="post" asp-area="Subject_Master" asp-controller="Subject" asp-action="SubjectDelete">
+                                                <form method="post" asp-area="Subject_Master" asp-route-SubjectID="@Convert.ToInt32(dr["SubjectID"])" asp-controller="Subject" asp-action="SubjectDelete">
                                                     <input type="hidden" value="@Convert.ToInt32(dr["SubjectID"])" name="SubjectID" />
                                                     <button type="submit" onclick="return deleteAlert();" class="btn btn-danger" value="Delete">Delete</button>
                                                 </form>
                                             </div>
                                             <div class="ms-2">
-                                                <form asp-area="Subject_Master" asp-controller="Subject" asp-action="AddSubject">
+                                                <form asp-area="Subject_Master" asp-route-SubjectID="@Convert.ToInt32(dr["SubjectID"])" asp-controller="Subject" asp-action="AddSubject">
                                                     <input type="hidden" value="@Convert.ToInt32(dr["SubjectID"])" name="SubjectID" />
                                                     <button type="submit" class="btn btn-info" value="Update">Update</button>
                                                 </form>
