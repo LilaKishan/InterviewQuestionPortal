@@ -18,13 +18,17 @@ namespace InterviewQuestionPortal.Areas.MST_User.Controllers
         MST_UserDALBase DALMst_User = new MST_UserDALBase();
         //MST_UserDALBase DALMst_User = new MST_UserDALBase(_webHostEnvironment);
         // MST_UserDAL Mst_UserDAL = new MST_UserDAL(_webHostEnvironment);
-
-        public IActionResult Login_Page()
+        public IActionResult MST_User_Dashboard()
         {
             return View();
         }
 
         #region Login
+        public IActionResult Login_Page()
+        {
+            return View();
+        }
+
         [HttpPost]
         public IActionResult Login(MST_UserModel userLoginModel)
         {
@@ -106,6 +110,8 @@ namespace InterviewQuestionPortal.Areas.MST_User.Controllers
             return RedirectToAction("Index", "Home");
         }
         #endregion
+
+        #region MST_User_Dashboard_Question list
         public IActionResult MST_User_Dashboard_Question()
         {
             
@@ -114,19 +120,22 @@ namespace InterviewQuestionPortal.Areas.MST_User.Controllers
            
             return View("MST_User_Dashboard_Question", dtQuestion_Master);
         }
+        #endregion
 
-        public IActionResult MST_UserRegister()
-        {
-            return View();
-        }
+        #region User_Account profilepage
         public IActionResult User_Account(int? UserID)
         {
             //DataTable userdata = DALMst_User.dbo_PR_MST_User_SelectByID(UserID);
 
             return View();
         }
+        #endregion
 
         #region  Register
+        public IActionResult MST_UserRegister()
+        {
+            return View();
+        }
         public IActionResult Register(MST_UserModel mst_UserModel)
         {
 
@@ -192,6 +201,6 @@ namespace InterviewQuestionPortal.Areas.MST_User.Controllers
         #endregion
 
 
-       
+
     }
 }

@@ -70,7 +70,7 @@
                 <ul class="menu-inner py-1">
                     <!-- Dashboards -->
                     <li class="menu-item active open ">
-                        <a asp-area="MST_User" asp-controller="MST_User" asp-action="MST_User_Dashboard_Question" class="menu-link">
+                        <a asp-area="MST_User" asp-controller="MST_User" asp-action="MST_User_Dashboard" class="menu-link">
                             <i class="menu-icon tf-icons mdi mdi-home-outline"></i>
                             <div class="text-white ms-1">Dashboards</div>
                         </a>
@@ -90,10 +90,19 @@
 
                     @*Profile*@
                     <li class="menu-item active mb-2">
-                        <a @*asp-area="ADMN_PaymentMode" asp-controller="Admin_MST_PaymentMode" asp-action="Admin_MST_PaymentModeList"*@
+                        <a asp-area="MST_User" asp-controller="MST_User" asp-action="User_Account"
                            class="menu-link">
                             <i class="menu-icon tf-icons mdi mdi-account-outline"></i>
                             <div class="ms-3">Profile</div>
+                        </a>
+                    </li>
+
+                    @*Test*@
+                    <li class="menu-item active mb-2">
+                        <a asp-area="MST_Test" asp-controller="MST_Test" asp-action="Test_GenerationByUserPage"
+                           class="menu-link">
+                            <i class="menu-icon tf-icons mdi mdi-account-outline"></i>
+                            <div class="ms-3">Test</div>
                         </a>
                     </li>
 
@@ -183,15 +192,7 @@
                                             <span class="align-middle">Settings</span>
                                         </a>
                                     </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">
-                                            <span class="d-flex align-items-center align-middle">
-                                                <i class="flex-shrink-0 mdi mdi-credit-card-outline me-1 mdi-20px"></i>
-                                                <span class="flex-grow-1 align-middle ms-1">Billing</span>
-                                                <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-                                            </span>
-                                        </a>
-                                    </li>
+                                    
                                     <li>
                                         <div class="dropdown-divider my-1"></div>
                                     </li>

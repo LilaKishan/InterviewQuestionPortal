@@ -1,0 +1,148 @@
+﻿@{
+    ViewData["Title"] = "Test  Page";
+    Layout = "~/Views/Shared/_Layout_User.cshtml";
+}
+
+@model InterviewQuestionPortal.Areas.MST_Test.Models.MST_TestModel
+@using InterviewQuestionPortal.BAL;
+
+
+<main class="main" id="main">
+    <div class="row">
+        @if (!string.IsNullOrEmpty(ViewBag.Message))
+        {
+            <div class="alert alert-info">@ViewBag.Message</div>
+        }
+        <!-- Basic Layout -->
+        <div class="row">
+            <div class="col-xl">
+                <div class="card mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Test</h5>
+                        @*<small class="text-muted float-end">Default label</small>*@
+                    </div>
+                    <div class="card-body">
+                        <form enctype="multipart/form-data" asp-area="MST_Test" asp-controller="MST_Test" asp-action="Save">
+                            <div asp-validation-summary="All" class="text-danger"></div>
+                            @Html.HiddenFor(CV=>CV.UserID)
+
+                            @*Dropdown of SubjectName*@
+                            <div class="dropdown mb-4">
+                                <label for="basic-default-fullname"><span class="text-danger">*</span>SubjectName</label>
+                                <select id="SubjectID" onchange="fnOnSubjectChange()" required class="form-select" asp-for="SubjectID" asp-items="@(new SelectList(ViewBag.SubjectList,"SubjectID","SubjectName"))">
+                                    <option>Select Subject</option>
+                                </select>
+                                <span asp-validation-for="SubjectID" class="text-danger"></span>
+                            </div>
+
+                            @*Dropdown of MainTopicName*@
+                            <div class="dropdown mb-4">
+                                <label for="basic-default-fullname"><span class="text-danger">*</span>MainTopicName</label>
+                                <select id="MainTopicID" onclick="fnOnMainTopicChange()" class="form-control" asp-for="MainTopicID" asp-items="@(new SelectList(ViewBag.MainTopicList, "MainTopicID", "MainTopicName"))">
+                                    <option value="">Select MainTopic</option>
+                                </select>
+                                <span asp-validation-for="MainTopicID" class="text-danger"></span>
+                            </div>
+
+                            @*Dropdown of SubTopicName*@
+                            <div class="dropdown mb-4 " required>
+                                <label for="basic-default-fullname"><span class="text-danger">*</span>SubTopicName</label>
+                                <select class="form-select" asp-for="SubTopicID" asp-items="@(new SelectList(ViewBag.SubTopicList,"SubTopicID","SubTopicName"))">
+                                    <option>Select SubTopicName</option>
+                                </select>
+                                <span asp-validation-for="SubTopicID" class="text-danger"></span>
+                            </div>
+
+                            @*No.ofQuestion*@
+                            <div class="form-floating form-floating-outline mb-4">
+                                <input required asp-for="Total_Questions" type="number" class="form-control" placeholder="Enter number of Question" />
+                                <label><span class="text-danger">*</span>Total Question</label>
+                                <span asp-validation-for="Total_Questions" class="text-danger"></span>
+                            </div>
+
+                            @*Duration*@
+                            <div class="form-floating form-floating-outline mb-4">
+                                <input required asp-for="Duration" type="text" class="form-control" placeholder="duration" />
+                                <label><span class="text-danger">*</span>Duration</label>
+                                <span asp-validation-for="Duration" class="text-danger"></span>
+                            </div>
+                            <input type="hidden" asp-for="UserID" value="@CV.UserID"/>
+                            <button type="submit" class="btn btn-primary">
+                                <span>Submit</span>
+
+                            </button>
+                            <a class="btn btn-primary" asp-area="MST_User" asp-controller="MST_User" asp-action="MST_User_Dashboard">Back</a>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+@section Scripts{
+    <script>
+        function fnOnSubjectChange() {
+            var SubjectID = $("#SubjectID").val();
+
+            if (SubjectID !== "") {
+                $("#MainTopicID").empty();
+                $("#MainTopicID").append($("<option></option>").val("").html("Select MainTopic"));
+                $.ajax(
+                    {
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        url: "@Url.Action("DropDownMainTopic", "MST_Test")" + "?&SubjectID=" + SubjectID,
+                        data: {},
+                        dataType: "json",
+                        success: function (Result) {
+                            $.each(Result,
+                                function (key, value) {
+                                    console.log(value)
+                                    $("#MainTopicID").append($("<option></option>").val(value.mainTopicID).html(value.mainTopicName));
+                                });
+                        },
+                        error: function (r) {
+                            alert("Error while loading Dropdown.");
+                        }
+                    });
+            }
+            else {
+                $("#MainTopicID").empty();
+                $("#MainTopicID").append($("<option></option>").val("").html("Select MainTopic"));
+            }
+        }
+        function fnOnMainTopicChange() {
+            var MainTopicID = $("#MainTopicID").val();
+
+            if (MainTopicID !== "") {
+                $("#SubTopicID").empty();
+                $("#SubTopicID").append($("<option></option>").val("").html("Select SubTopic"));
+                $.ajax(
+                    {
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        url: "@Url.Action("DropDownSubTopic", "MST_Test")" + "?&MainTopicID=" + MainTopicID,
+                        data: {},
+                        dataType: "json",
+                        success: function (Result) {
+                            $.each(Result,
+                                function (key, value) {
+                                    console.log(value)
+                                    $("#SubTopicID").append($("<option></option>").val(value.subTopicID).html(value.subTopicName));
+                                });
+                        },
+                        error: function (r) {
+                            alert("Error while loading Dropdown.");
+                        }
+                    });
+            }
+            else {
+                $("#SubTopicID").empty();
+                $("#SubTopicID").append($("<option></option>").val("").html("Select SubTopic"));
+            }
+        }
+    </script>
+}

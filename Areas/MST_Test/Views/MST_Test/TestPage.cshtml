@@ -1,0 +1,45 @@
+﻿@{
+    ViewData["Title"] = "Test  Page";
+    Layout = "~/Views/Shared/_Layout_User.cshtml";
+}
+
+<h1>Test Succesfully Generated</h1>
+
+@using System.Data;
+@model InterviewQuestionPortal.Models.ViewModel;
+
+<main id="main">
+
+    @{
+        List<String> options = new List<string> { "A", "B", "C", "D" };
+        var Index = 0;
+    }
+
+    @foreach (DataRow i in Model.TestQuestion.Rows)
+    {
+        Index++;
+
+        <div class="card mt-1" style="width: auto;">
+
+            <div class="card-body border-1">
+                <h5 class="card-title"><span>@Index.</span> @i["Question"]</h5>
+
+            </div>
+            <div class="list-group m-2">
+                @*@foreach (var i in options)
+            {
+            <a class="list-group-item  "><label class="@(i.ToLower() == Model.CorrectAnswer.ToString().ToLower()?" text-success":"text-dark")" for="@dr["QuestionID"].ToString()_@i"><span> @i. </span>@dr["Option_"+@i]</label></a>
+            }*@
+                <a class="list-group-item">A.<label>@i["Option_A"]</label></a>
+                <a class="list-group-item">B.<label>@i["Option_B"]</label></a>
+                <a class="list-group-item">C.<label>@i["Option_C"]</label></a>
+                <a class="list-group-item">D.<label>@i["Option_D"]</label></a>
+            </div>
+
+
+
+        </div>
+    }
+</main>
+
+
