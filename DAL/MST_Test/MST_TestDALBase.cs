@@ -29,8 +29,21 @@ namespace InterviewQuestionPortal.DAL.MST_Test
                     sqlDB.AddInParameter(dbCMD,"@Total_Questions",DbType.Int32,mST_TestModel.Total_Questions);
                     sqlDB.AddInParameter(dbCMD, "@Created", DbType.DateTime, DBNull.Value);
                     sqlDB.AddInParameter(dbCMD, "@Modified", DbType.DateTime, DBNull.Value);
-
+                 
                     bool isSuccess = Convert.ToBoolean(sqlDB.ExecuteNonQuery(dbCMD));
+                    if (!isSuccess)
+                    {
+                        DataTable dtQuestion = new DataTable();
+
+                        using (IDataReader dr = sqlDB.ExecuteReader(dbCMD))
+                        {
+                            dtQuestion.Load(dr);
+                        }
+                        if (dtQuestion.Rows.Count > 0)
+                        {
+                            isSuccess = false;
+                        }
+                    }
                     return isSuccess;
                 }
                // return false;
@@ -56,21 +69,6 @@ namespace InterviewQuestionPortal.DAL.MST_Test
                 {
                     dtQuestion.Load(dr);
                 }
-                //foreach (DataRow dataRow in dtQuestion.Rows)
-                //{
-                //    model.TestQuestionID = Convert.ToInt32(dataRow["TestQuestionID"]);
-                //    model.Question = dataRow["Question"].ToString();
-                //    model.Option_A = dataRow["Option_A"].ToString();
-                //    model.Option_B = dataRow["Option_B"].ToString();
-                //    model.Option_C = dataRow["Option_C"].ToString();
-                //    model.Option_D = dataRow["Option_D"].ToString();
-                //    model.TrueOption = dataRow["TrueOption"].ToString();
-                //    model.CorrectAnswer = dataRow["CorrectAnswer"].ToString();
-                   
-                //    model.UserID = Convert.ToInt32(dataRow["UserID"]);
-                //    //model.Created = Convert.ToDateTime(dataRow["Created"].ToString());
-                //    //model.Modified = Convert.ToDateTime(dataRow["Modified"].ToString());
-                //}
                 return dtQuestion;
 
             }

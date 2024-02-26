@@ -9,9 +9,10 @@
 
 <main class="main" id="main">
     <div class="row">
-        @if (!string.IsNullOrEmpty(ViewBag.Message))
+        @if (TempData["Message"]!=null)
         {
-            <div class="alert alert-info">@ViewBag.Message</div>
+            <div class="alert alert-danger alert-dismissible">@TempData["Message"]</div>
+            
         }
         <!-- Basic Layout -->
         <div class="row">
@@ -29,7 +30,7 @@
                             @*Dropdown of SubjectName*@
                             <div class="dropdown mb-4">
                                 <label for="basic-default-fullname"><span class="text-danger">*</span>SubjectName</label>
-                                <select id="SubjectID" onchange="fnOnSubjectChange()" required class="form-select" asp-for="SubjectID" asp-items="@(new SelectList(ViewBag.SubjectList,"SubjectID","SubjectName"))">
+                                <select id="SubjectID" onchange="fnOnSubjectChange()"  class="form-select" asp-for="SubjectID" asp-items="@(new SelectList(ViewBag.SubjectList,"SubjectID","SubjectName"))">
                                     <option>Select Subject</option>
                                 </select>
                                 <span asp-validation-for="SubjectID" class="text-danger"></span>

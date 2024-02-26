@@ -61,13 +61,19 @@ namespace InterviewQuestionPortal.Areas.MST_Test.Controllers
                         //TempData["TestGenerateMsg"] = "Test Generate Successfully";
                         return RedirectToAction("TestPage");
                     }
+                    else
+                    {
+                        message = "Not Enough Question, please enter less number of question ";
+                        TempData["Message"] = message;
+                        return RedirectToAction("Test_GenerationByUserPage");
+                    }
                 }
-                return View("Test_GenerationByUserPage");
+                
             }
             catch(Exception ex) {
-                message = "An error occurred: " + ex.Message;
+               // message = "Not Enough Question, please enter less number of question: " + ex.Message;
             }
-            ViewBag.Message = message;
+            //ViewBag.Message = message;
             return View("Test_GenerationByUserPage");
         }
 
