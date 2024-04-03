@@ -29,6 +29,17 @@
             }
             return UserID;
         }
+        public static int? TestID()
+        {
+            int? TestID = null;
+           
+            if (_httpContextAccessor.HttpContext.Session.GetString("TestID") != null)
+            {
+                TestID = Convert.ToInt32(_httpContextAccessor.HttpContext.Session.GetString("TestID").ToString());
+            }
+            Console.WriteLine(TestID);
+            return TestID;
+        }
         public static string? ImageURL()
         {
             string? ImageURL = null;

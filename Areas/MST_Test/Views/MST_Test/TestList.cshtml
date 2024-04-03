@@ -1,0 +1,79 @@
+﻿@{
+    ViewData["Title"] = "Testlist Page";
+    Layout = "~/Views/Shared/_Layout_User.cshtml";
+}
+
+@using System.Data;
+@model InterviewQuestionPortal.Models.ViewModel;
+
+<div class="card">
+    <h5 class="card-header">Test List</h5>
+    <div class="card-datatable ">
+        <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+          
+            <div class="table-responsive">
+                <table class="dt-complex-header table table-bordered dataTable no-footer" id="DataTables_Table_1" aria-describedby="DataTables_Table_1_info" style="width: 1190px;">
+                    <thead>
+                        <tr>
+                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_1" rowspan="1" colspan="1" style="width: 242.2px;" aria-label="E-mail: activate to sort column ascending">TestName</th>
+                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_1" rowspan="1" colspan="1" style="width: 172.2px;" aria-label="E-mail: activate to sort column ascending">Duration</th>
+                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_1" rowspan="1" colspan="1" style="width: 172.2px;" aria-label="City: activate to sort column ascending">Subject</th>
+                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_1" rowspan="1" colspan="1" style="width: 172.2px;" aria-label="Position: activate to sort column ascending">MainTopic</th>
+                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_1" rowspan="1" colspan="1" style="width: 74.2px;" aria-label="Salary: activate to sort column ascending">Subtopic</th>
+@*                            <th class="border-1 sorting" tabindex="0" aria-controls="DataTables_Table_1" rowspan="1" colspan="1" style="width: 95.4px;" aria-label="Status: activate to sort column ascending">Status</th>*@
+                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_1" aria-label="E-mail: activate to sort column ascending">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (DataRow i in Model.Generate_Test.Rows)
+                        {
+                            <tr>
+                                <td class="sorting_1">
+                                    @i["TestID"]
+                                </td>
+                                <td>@i["Duration"].ToString()</td>
+                                <td>@i["SubjectName"]</td>
+                                <td>@i["MainTopicName"]</td>
+                                <td>@i["SubTopicName"]</td>
+                                @*<td>
+                                    <span class="badge rounded-pill  bg-label-warning">pending</span>
+                                </td>*@
+
+                                <td>
+                                    <form method="post" asp-area="MST_Test" asp-controller="MST_Test" asp-action="TestPage">
+                                        <input type="hidden"  value="@Convert.ToInt32(i["TestID"])" name="TestID" />
+                                        <button id="startbtn"  onclick="return TestAlert();"  type="submit" class="btn btn-success" value="Start">Start</button>
+                                    </form>
+                                   
+                                </td>
+                             
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                @*</div>@*<div class="row"><div class="col-sm-12 col-md-6"><div class="dataTables_info" id="DataTables_Table_1_info" role="status" aria-live="polite">Showing 1 to 7 of 100 entries</div></div><div class="col-sm-12 col-md-6"><div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_1_paginate"><ul class="pagination"><li class="paginate_button page-item previous disabled" id="DataTables_Table_1_previous"><a aria-controls="DataTables_Table_1" aria-disabled="true" role="link" data-dt-idx="previous" tabindex="0" class="page-link">Previous</a></li><li class="paginate_button page-item active"><a href="#" aria-controls="DataTables_Table_1" role="link" aria-current="page" data-dt-idx="0" tabindex="0" class="page-link">1</a></li><li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_1" role="link" data-dt-idx="1" tabindex="0" class="page-link">2</a></li><li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_1" role="link" data-dt-idx="2" tabindex="0" class="page-link">3</a></li><li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_1" role="link" data-dt-idx="3" tabindex="0" class="page-link">4</a></li><li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_1" role="link" data-dt-idx="4" tabindex="0" class="page-link">5</a></li><li class="paginate_button page-item disabled" id="DataTables_Table_1_ellipsis"><a aria-controls="DataTables_Table_1" aria-disabled="true" role="link" data-dt-idx="ellipsis" tabindex="0" class="page-link">…</a></li><li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_1" role="link" data-dt-idx="14" tabindex="0" class="page-link">15</a></li><li class="paginate_button page-item next" id="DataTables_Table_1_next"><a href="#" aria-controls="DataTables_Table_1" role="link" data-dt-idx="next" tabindex="0" class="page-link">Next</a></li></ul></div></div></div>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+    {
+    <script>
+        //function DisableButton() {
+        //    document.getElementById("startbtn").disabled = true;
+        //    continue();
+        //}
+        function TestAlert() {
+
+            if (confirm("Are you sure you want to Start test?")) {
+               // document.getElementById("startbtn").disabled = true;
+                return true; 
+            }
+            else {
+                document.getElementById("startbtn").disabled = false;
+                return false;
+            }
+        }
+    </script>
+}

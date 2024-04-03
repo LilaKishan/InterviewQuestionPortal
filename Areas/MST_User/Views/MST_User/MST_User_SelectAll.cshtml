@@ -22,7 +22,7 @@
 
         <div class="card m-3">
 
-            <div class="card-datatable table-responsive m-1">
+            <div class="card-datatable  m-1">
                 <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
                     <div class="card-header d-flex  rounded-0 flex-wrap py-md-0">
                         <div class="head-label col-12"><h3 class="card-title mb-2 mt-3">User Table</h3><hr /></div>
@@ -56,77 +56,79 @@
                         </div>
 
                     </div>
-                    <table class="datatables-products table dataTable no-footer dtr-column collapsed" id="DataTables_Table_0"
-                           aria-describedby="DataTables_Table_0_info" style="width: 1168px;">
-                        <thead class="table-light">
-                            <tr>
-                                <th class="control sorting_disabled" rowspan="1" colspan="1" style="width: 5px;" aria-label=""><input type="checkbox" id="SelectAll" /> </th>
-                                <th class="sorting sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                    colspan="1" style="width: 442px;" aria-label="product: activate to sort column descending"
-                                    aria-sort="ascending">UserName</th>
-                                <th class="fw-medium">FirstName</th>
-                                <th class="fw-medium">LastName</th>
-                                <th class="fw-medium">Email</th>
-                                <th class="fw-medium">ImageURL</th>
-                                <th class="fw-medium">IsAdmin</th>
-                                <th class="fw-medium">Created</th>
-                                <th class="fw-medium">Modified</th>
+                    <div class=" table-responsive ">
+                        <table class="datatables-products table dataTable no-footer dtr-column collapsed" id="DataTables_Table_0"
+                               aria-describedby="DataTables_Table_0_info" style="width: 1168px;">
+                            <thead class="table-light">
+                                <tr>
+                                    @*<th class="control sorting_disabled" rowspan="1" colspan="1" style="width: 5px;" aria-label=""><input type="checkbox" id="SelectAll" /> </th>*@
+                                    <th class="sorting sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                                        colspan="1" style="width: 442px;" aria-label="product: activate to sort column descending"
+                                        aria-sort="ascending">UserName</th>
+                                    <th class="fw-medium">FirstName</th>
+                                    <th class="fw-medium">LastName</th>
+                                    <th class="fw-medium">Email</th>
+                                    <th class="fw-medium">ImageURL</th>
+                                    <th class="fw-medium">IsAdmin</th>
+                                    <th class="fw-medium">Created</th>
+                                    <th class="fw-medium">Modified</th>
 
-                                <th rowspan="1"
-                                    colspan="1"> Action</th>
-                            </tr>
-                        <tbody id="sample_2">
-                                @foreach (DataRow dr in Model.Rows)
-                                {
+                                    <th rowspan="1"
+                                        colspan="1"> Action</th>
+                                </tr>
+                            <tbody id="sample_2">
+                                    @foreach (DataRow dr in Model.Rows)
+                                    {
 
-                                <tr class="">
-                                    <td class="control" tabindex="0" style="">
-                                        <input type="checkbox" id="@dr["UserID"]">@dr["UserID"]
-                                    </td>
-                                    <td class="sorting_1">
-                                        <div class="d-flex justify-content-start align-items-center product-name">
-                                            <div class="avatar-wrapper me-3">
-                                                <div class="avatar rounded-2 bg-label-secondary">
-                                                    <img src="@Url.Content(dr["ImageURL"].ToString())"
-                                                         class="rounded-2">
+                                    <tr class="">
+                                            @*<td class="control" tabindex="0" style="">
+                                    <input type="checkbox" id="@dr["UserID"]">@dr["UserID"]
+                                    </td>*@
+                                        <td class="sorting_1">
+                                            <div class="d-flex justify-content-start align-items-center product-name">
+                                                <div class="avatar-wrapper me-3">
+                                                    <div class="avatar rounded-2 bg-label-secondary">
+                                                        <img src="@Url.Content(dr["ImageURL"].ToString())"
+                                                             class="rounded-2">
+                                                    </div>
+                                                </div>
+
+                                                <div class="d-flex flex-column">
+                                                    <span class="text-nowrap text-heading fw-medium">
+                                                            @dr["UserName"]
+                                                    </span>
                                                 </div>
                                             </div>
-
-                                            <div class="d-flex flex-column">
-                                                <span class="text-nowrap text-heading fw-medium">
-                                                        @dr["UserName"]
-                                                </span>
+                                        </td>
+                                        <td class="fw-medium">@dr["FirstName"]</td>
+                                        <td class="fw-medium">@dr["LastName"]</td>
+                                        <td class="fw-medium">@dr["Email"]</td>
+                                        <td class="fw-medium">@dr["ImageURL"]</td>
+                                        <td class="fw-medium">@dr["ISAdmin"]</td>
+                                        <td class="fw-medium">@dr["Created"]</td>
+                                        <td class="fw-medium">@dr["Modified"]</td>
+                                        <td>
+                                            <div class="d-flex">
+                                                <div class="me-2">
+                                                    <form method="post" asp-area="MST_User" asp-controller="MST_User" asp-action="MST_User_DeleteByID">
+                                                        <input type="hidden" value="@Convert.ToInt32(dr["UserID"])" name="UserID" />
+                                                        <button onclick="return deleteAlert();" type="submit" class="btn btn-danger" value="Delete">Delete</button>
+                                                    </form>
+                                                </div>
+                                                    @*<div class="ms-2">
+                                            <form asp-area="MainTopic" asp-controller="MainTopic" asp-action="AddMainTopic">
+                                            <input type="hidden" value="@Convert.ToInt32(dr["UserID"])" name="UserID" />
+                                            <button type="submit" class="btn btn-info" value="Update">Update</button>
+                                            </form>
+                                            </div>*@
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td class="fw-medium">@dr["FirstName"]</td>
-                                    <td class="fw-medium">@dr["LastName"]</td>
-                                    <td class="fw-medium">@dr["Email"]</td>
-                                    <td class="fw-medium">@dr["ImageURL"]</td>
-                                    <td class="fw-medium">@dr["ISAdmin"]</td>
-                                    <td class="fw-medium">@dr["Created"]</td>
-                                    <td class="fw-medium">@dr["Modified"]</td>
-                                    <td>
-                                        <div class="d-flex">
-                                            <div class="me-2">
-                                                <form method="post" asp-area="MST_User" asp-controller="MST_User" asp-action="MST_User_DeleteByID">
-                                                    <input type="hidden" value="@Convert.ToInt32(dr["UserID"])" name="UserID" />
-                                                    <button onclick="return deleteAlert();" type="submit" class="btn btn-danger" value="Delete">Delete</button>
-                                                </form>
-                                            </div>
-                                                @*<div class="ms-2">
-                                        <form asp-area="MainTopic" asp-controller="MainTopic" asp-action="AddMainTopic">
-                                        <input type="hidden" value="@Convert.ToInt32(dr["UserID"])" name="UserID" />
-                                        <button type="submit" class="btn btn-info" value="Update">Update</button>
-                                        </form>
-                                        </div>*@
-                                        </div>
-                                    </td>
-                                </tr>
-                                }
+                                        </td>
+                                    </tr>
+                                    }
 
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

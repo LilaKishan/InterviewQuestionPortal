@@ -25,11 +25,18 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             }
+            if (TempData["SubjectDeleteMsg"] != null)
+            {
+                <div class="alert alert-danger  alert-dismissible" role="alert">
+                    @TempData["SubjectDeleteMsg"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
         }
 
-       <div class="card m-3">
+        <div class="card m-3">
 
-            <div class="card-datatable table-responsive m-2">
+            <div class="card-datatable m-2">
                 <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
                     <div class="card-header d-flex  rounded-0 flex-wrap py-md-0">
                         <div class="head-label col-12"><h3 class="card-title mb-3">Subject Table</h3><hr /></div>
@@ -46,7 +53,7 @@
                         <div class="d-flex align-items-baseline  col-5 justify-content-end">
                             <div class="dt-action-buttons d-flex align-items-start align-items-md-center justify-content-sm-center mb-3 mb-sm-0 gap-3 pt-0">
 
-                                <div class="dt-buttons d-flex flex-wrap">
+                                <div class="dt-buttons ">
                                     @* <button class="dt-button buttons-collection dropdown-toggle btn btn-label-secondary me-3 waves-effect waves-light"
                                     tabindex="0" aria-controls="DataTables_Table_0" type="button" aria-haspopup="dialog"
                                     aria-expanded="false">
@@ -63,71 +70,73 @@
                         </div>
 
                     </div>
-                    <table class="datatables-products table dataTable no-footer dtr-column collapsed" id="DataTables_Table_0"
-                           aria-describedby="DataTables_Table_0_info" style="width: 1168px;">
-                        <thead class="table-light">
-                            <tr>
+                    <div class=" table-responsive ">
+                        <table class="datatables-products table dataTable no-footer dtr-column collapsed  table-respons" id="DataTables_Table_0"
+                               aria-describedby="DataTables_Table_0_info" style="width: 1168px;">
+                            <thead class="table-light">
+                                <tr>
 
-                                @*<th class="fw-medium">SubjectID</th>*@
-                               @* <th class="sorting sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                                    @*<th class="fw-medium">SubjectID</th>*@
+                                    @* <th class="sorting sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                                     colspan="1" style="width: 442px;" aria-label="product: activate to sort column descending"
                                     aria-sort="ascending">SubjectName</th>*@
-                                <th class="fw-medium">SubjectName</th>
-                                <th class="fw-medium">Created</th>
-                                <th class="fw-medium">Modified</th>
+                                    <th class="fw-medium">SubjectName</th>
+                                    <th class="fw-medium">Created</th>
+                                    <th class="fw-medium">Modified</th>
 
-                                <th class="fw-medium"> Action</th>
-                            </tr>
-                        <tbody id="sample_2">
-                                @foreach (DataRow dr in Model.Rows)
-                                {
-                                    @*Console.WriteLine(@dr["CategoryImage"]);*@
-                                <tr >
-                                        @*<td class="fw-medium">@dr["SubjectID"]</td>*@
-
-                                    <td class="sorting_1">
-                                        <div class="d-flex justify-content-start align-items-center product-name">
-                                                @*<div class="avatar-wrapper me-3">
-                                        <div class="avatar rounded-2 bg-label-secondary">
-                                        <img src="@Url.Content(dr["CategoryImage"].ToString())"
-                                        class="rounded-2">
-                                        </div>
-                                        </div>*@
-                                            <div class="d-flex flex-column">
-                                                <span class="text-nowrap text-heading fw-medium">
-                                                        @dr["SubjectName"]
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="fw-medium">@dr["Created"]</td>
-                                    <td class="fw-medium">@dr["Modified"]</td>
-                                    <td class="fw-medium align-items-centerjustify-content-start">
-                                        <div class="d-flex">
-                                            <div class="me-2">
-                                                <form method="post" asp-area="Subject_Master" asp-route-SubjectID="@Convert.ToInt32(dr["SubjectID"])" asp-controller="Subject" asp-action="SubjectDelete">
-                                                    <input type="hidden" value="@Convert.ToInt32(dr["SubjectID"])" name="SubjectID" />
-                                                    <button type="submit" onclick="return deleteAlert();" class="btn btn-danger" value="Delete">Delete</button>
-                                                </form>
-                                            </div>
-                                            <div class="ms-2">
-                                                <form asp-area="Subject_Master" asp-route-SubjectID="@Convert.ToInt32(dr["SubjectID"])" asp-controller="Subject" asp-action="AddSubject">
-                                                    <input type="hidden" value="@Convert.ToInt32(dr["SubjectID"])" name="SubjectID" />
-                                                    <button type="submit" class="btn btn-info" value="Update">Update</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </td>
+                                    <th class="fw-medium"> Action</th>
                                 </tr>
-                                }
+                            <tbody id="sample_2">
+                                    @foreach (DataRow dr in Model.Rows)
+                                    {
+                                        @*Console.WriteLine(@dr["CategoryImage"]);*@
+                                    <tr>
+                                            @*<td class="fw-medium">@dr["SubjectID"]</td>*@
 
-                        </tbody>
-                    </table>
+                                        <td class="sorting_1">
+                                            <div class="d-flex justify-content-start align-items-center product-name">
+                                                    @*<div class="avatar-wrapper me-3">
+                                            <div class="avatar rounded-2 bg-label-secondary">
+                                            <img src="@Url.Content(dr["CategoryImage"].ToString())"
+                                            class="rounded-2">
+                                            </div>
+                                            </div>*@
+                                                <div class="d-flex flex-column">
+                                                    <span class="text-nowrap text-heading fw-medium">
+                                                            @dr["SubjectName"]
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="fw-medium">@dr["Created"]</td>
+                                        <td class="fw-medium">@dr["Modified"]</td>
+                                        <td class="fw-medium align-items-centerjustify-content-start">
+                                            <div class="d-flex">
+                                                <div class="me-2">
+                                                    <form method="post" asp-area="Subject_Master" asp-route-SubjectID="@Convert.ToInt32(dr["SubjectID"])" asp-controller="Subject" asp-action="SubjectDelete">
+                                                        <input type="hidden" value="@Convert.ToInt32(dr["SubjectID"])" name="SubjectID" />
+                                                        <button type="submit" onclick="return deleteAlert();" class="btn btn-danger" value="Delete">Delete</button>
+                                                    </form>
+                                                </div>
+                                                <div class="ms-2">
+                                                    <form asp-area="Subject_Master" asp-route-SubjectID="@Convert.ToInt32(dr["SubjectID"])" asp-controller="Subject" asp-action="AddSubject">
+                                                        <input type="hidden" value="@Convert.ToInt32(dr["SubjectID"])" name="SubjectID" />
+                                                        <button type="submit" class="btn btn-info" value="Update">Update</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    }
+
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-        
-      
+
+
     </div>
 </main>
 

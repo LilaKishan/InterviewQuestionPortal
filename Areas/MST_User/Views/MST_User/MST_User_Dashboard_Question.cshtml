@@ -1,4 +1,5 @@
 ﻿﻿@{
+    ViewData["Title"] = "QuestionList Page";
     Layout = "~/Views/Shared/_Layout_User.cshtml";
 }
 
@@ -8,7 +9,7 @@
 
 
 <main id="main">
-
+    <h3>Questions Of All Topics</h3>
     @{
         List<String> options = new List<string> { "A", "B", "C", "D" };
         var Index = 0;
@@ -18,18 +19,19 @@
         Index++;
 
         <div class="card mt-1" style="width: auto;">
-
+            @*Question*@
             <div class="card-body border-1">
                 <h5 class="card-title"><span>@Index.</span> @dr["Question"]</h5>
 
             </div>
+            @*Correctanswer*@
             <div class="list-group m-2">
                 @foreach (var i in options)
                 {
                     <a class="list-group-item  "><label class="@(i.ToLower() == dr["CorrectAnswer"].ToString().ToLower()?" text-success":"text-dark")" for="@dr["QuestionID"].ToString()_@i"><span> @i. </span>@dr["Option_"+@i]</label></a>
                 }
             </div>
-
+            @*Explanation card*@
             <div class="card-body">
 
                 <p>

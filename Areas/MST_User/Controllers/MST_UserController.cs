@@ -2,22 +2,18 @@
 using InterviewQuestionPortal.Areas.Question_Master.Models;
 using InterviewQuestionPortal.DAL.MST_User;
 using InterviewQuestionPortal.DAL.Question_Master;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Data;
 
 namespace InterviewQuestionPortal.Areas.MST_User.Controllers
 {
-
     [Area("MST_User")]
     [Route("MST_User/[controller]/[action]")]
     public class MST_UserController : Controller
     {
-
-
         MST_UserDALBase DALMst_User = new MST_UserDALBase();
-        //MST_UserDALBase DALMst_User = new MST_UserDALBase(_webHostEnvironment);
-        // MST_UserDAL Mst_UserDAL = new MST_UserDAL(_webHostEnvironment);
         public IActionResult MST_User_Dashboard()
         {
             return View();
@@ -114,10 +110,10 @@ namespace InterviewQuestionPortal.Areas.MST_User.Controllers
         #region MST_User_Dashboard_Question list
         public IActionResult MST_User_Dashboard_Question()
         {
-            
+
             Question_MasterDALBase dalQuestion_Master = new Question_MasterDALBase();
             DataTable dtQuestion_Master = dalQuestion_Master.dbo_PR_Question_Master_SelectAll();
-           
+
             return View("MST_User_Dashboard_Question", dtQuestion_Master);
         }
         #endregion
@@ -199,7 +195,6 @@ namespace InterviewQuestionPortal.Areas.MST_User.Controllers
         //}
 
         #endregion
-
 
 
     }

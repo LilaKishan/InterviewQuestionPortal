@@ -71,6 +71,7 @@ namespace InterviewQuestionPortal.Areas.Subject_Master.Controllers
 
             if (Convert.ToBoolean(dalSubject_Master.dbo_PR_Subject_Master_DeleteByID(SubjectID)))
             {
+                TempData["SubjectDeleteMsg"] = "Subject Delete Successfully";
                 return RedirectToAction("SubjectList");
             }
 

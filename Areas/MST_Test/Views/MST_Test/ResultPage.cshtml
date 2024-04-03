@@ -1,0 +1,14 @@
+﻿@using InterviewQuestionPortal.Models;
+@using System.Data;
+@model DataTable;
+
+<h2>
+    Result OF your test
+</h2>
+<h6>Score: @Model.Rows[0]["result"]</h6>
+<h6>Out of @Model.Rows[0]["totalquestion"]</h6>
+<h6>
+    Attempted Question : @Model.Rows[0]["attemptedquestion"]<br />
+    NotAttempted Question : @Model.Rows[0]["notAttemptquestion"]
+</h6>   
+<a class="btn btn-primary" asp-area="MST_Test" asp-controller="MST_Test" asp-action="TestList">Back</a>

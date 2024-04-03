@@ -1,6 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Test  Page";
-    Layout = "~/Views/Shared/_Layout_User.cshtml";
+    Layout = "~/Views/Shared/_Layout_Test.cshtml";
 }
 
 <h1>Test Succesfully Generated</h1>
@@ -9,12 +9,12 @@
 @model InterviewQuestionPortal.Models.ViewModel;
 
 <main id="main">
-
+    <div id="timer" class="bg-danger"></div>
     @{
         List<String> options = new List<string> { "A", "B", "C", "D" };
         var Index = 0;
     }
-
+    <input name="CurrentTestID" id="CurrentTestID" type="hidden" value="@ViewData["TestID"]" />
     @foreach (DataRow i in Model.TestQuestion.Rows)
     {
         Index++;
@@ -26,20 +26,103 @@
 
             </div>
             <div class="list-group m-2">
-                @*@foreach (var i in options)
-            {
-            <a class="list-group-item  "><label class="@(i.ToLower() == Model.CorrectAnswer.ToString().ToLower()?" text-success":"text-dark")" for="@dr["QuestionID"].ToString()_@i"><span> @i. </span>@dr["Option_"+@i]</label></a>
-            }*@
-                <a class="list-group-item">A.<label>@i["Option_A"]</label></a>
-                <a class="list-group-item">B.<label>@i["Option_B"]</label></a>
-                <a class="list-group-item">C.<label>@i["Option_C"]</label></a>
-                <a class="list-group-item">D.<label>@i["Option_D"]</label></a>
+                <a class="list-group-item">
+                    <input class="updateOption" type="radio" value="A" name="@i["TestQuestionID"]" id="@(i["TestQuestionID"])_A"> A.<label for="@(i["TestQuestionID"])_A">@i["Option_A"]</label>
+                </a>
+                <a class="list-group-item">
+                    <input class="updateOption" type="radio" value="B" name="@i["TestQuestionID"]" id="@(i["TestQuestionID"])_B"> B.<label for="@(i["TestQuestionID"])_B">@i["Option_B"]</label>
+                </a>
+                <a class="list-group-item">
+                    <input class="updateOption" type="radio" value="C" name="@i["TestQuestionID"]" id="@(i["TestQuestionID"])_C"> C.<label for="@(i["TestQuestionID"])_C">@i["Option_C"]</label>
+                </a>
+                <a class="list-group-item">
+                    <input class="updateOption" type="radio" value="D" name="@i["TestQuestionID"]" id="@(i["TestQuestionID"])_D"> D.<label for="@(i["TestQuestionID"])_D">@i["Option_D"]</label>
+                </a>
             </div>
 
 
 
         </div>
+        
     }
+    <a class="btn btn-danger m-2" asp-action="ResultPage" asp-controller="MST_Test" asp-area="MST_Test">Submit</a>
 </main>
 
 
+@section Scripts{
+    <script>
+        $(document).ready(function () {                  
+            $(".updateOption").change(function () {
+                console.log("======================================");
+                console.log("Option Change");
+
+                var temp = $(this);
+                var testID = $('#CurrentTestID').val();
+                var testQuestionID = $(this).attr("id").split("_")[0];
+                var option = $(this).attr("id").split("_")[1];
+                console.log("Select : " + temp);
+                console.log("testID : " + testID);
+                console.log("questionID : " + testQuestionID);
+                console.log("option : " + option);
+
+                if (temp && testQuestionID && option) {
+                    $.ajax({
+                        type: "POST",
+                       // contentType: "application/json; charset=utf-8",
+                        contentType: "application/x-www-form-urlencoded",
+
+                        url: "@Url.Action("UpdateTrueOption", "MST_Test")",
+                        data: ({ "testID": testID, "testQuestionID": testQuestionID, "trueoption": option }),
+                        dataType: "json",
+                        success: function (Result) {
+                            console.log("SEND OPTION : " + Result.success);
+                            if(Result.success){
+                                $(this).prop("checked",true);
+                            }else{
+                                $(this).prop("checked", false);
+                            }
+                        },
+                        error: function (r) {
+                            alert("Error while loading Dropdown.");
+                        }
+                    });
+                }
+
+
+            })
+        })
+
+
+        // Set the duration of the timer in seconds
+        var duration = 300; // 5 minutes
+
+        // Start the timer
+        function startTimer() {
+            var timerElement = document.getElementById("timer");
+
+            // Update the timer every second
+            var timerInterval = setInterval(function () {
+                // Calculate minutes and seconds
+                var minutes = Math.floor(duration / 60);
+                var seconds = duration % 60;
+
+                // Display the timer
+                timerElement.innerHTML = "Time Remaining: " + minutes + "m " + seconds + "s";
+
+                // Decrease the duration
+                duration--;
+
+                // If the countdown is finished, display a message and stop the timer
+                if (duration < 0) {
+                    clearInterval(timerInterval);
+                    timerElement.innerHTML = "Time's up!";
+                    // Optionally, you can submit the form or perform any other action here
+                }
+            }, 1000); // Update every second (1000 milliseconds)
+        }
+
+        // Call the startTimer function when the page loads
+        window.onload = startTimer;
+    </script>
+    
+}

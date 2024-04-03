@@ -31,7 +31,7 @@
 
         <div class="card m-3">
 
-            <div class="card-datatable table-responsive m-1">
+            <div class="card-datatable  m-1">
                 <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
                     <div class="card-header d-flex  rounded-0 flex-wrap py-md-0">
                         <div class="head-label col-12"><h3 class="card-title mb-2 mt-3">SubTopic Table</h3><hr /></div>
@@ -65,69 +65,71 @@
                         </div>
 
                     </div>
-                    <table class="datatables-products table dataTable no-footer dtr-column collapsed" id="DataTables_Table_0"
-                           aria-describedby="DataTables_Table_0_info" style="width: 1168px;">
-                        <thead class="table-light">
-                            <tr>
-                                @*<th class="control sorting_disabled" rowspan="1" colspan="1" style="width: 5px;" aria-label="">
-                                </th>*@
-                                <th class="sorting sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                    colspan="1" style="width: 442px;" aria-label="product: activate to sort column descending"
-                                    aria-sort="ascending">SubTopicName</th>
-                                <th class="fw-medium">MainTopicName</th>
-                                <th class="fw-medium">SubjectName</th>
-                                <th class="fw-medium">Created</th>
-                                <th class="fw-medium">Modified</th>
+                    <div class=" table-responsive ">
+                        <table class="datatables-products table dataTable no-footer dtr-column collapsed" id="DataTables_Table_0"
+                               aria-describedby="DataTables_Table_0_info" style="width: 1168px;">
+                            <thead class="table-light">
+                                <tr>
+                                    @*<th class="control sorting_disabled" rowspan="1" colspan="1" style="width: 5px;" aria-label="">
+                                    </th>*@
+                                    <th class="sorting sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                                        colspan="1" style="width: 442px;" aria-label="product: activate to sort column descending"
+                                        aria-sort="ascending">SubTopicName</th>
+                                    <th class="fw-medium">MainTopicName</th>
+                                    <th class="fw-medium">SubjectName</th>
+                                    <th class="fw-medium">Created</th>
+                                    <th class="fw-medium">Modified</th>
 
-                                <th rowspan="1"
-                                    colspan="1"> Action</th>
-                            </tr>
-                        <tbody id="sample_2">
-                                @foreach (DataRow dr in Model.Rows)
-                                {
-
-                                <tr class="">
-                                        @*<td class="control" tabindex="0" style="">
-                                <button type="button">
-                                <img src="~/img/icons/misc/plus.png" class="" style="height:20px">
-                                </button>
-                                </td>*@
-                                    <td class="sorting_1">
-                                        <div class="d-flex justify-content-start align-items-center product-name">
-
-                                            <div class="d-flex flex-column">
-                                                <span class="text-nowrap text-heading fw-medium">
-                                                        @dr["SubTopicName"]
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="fw-medium">@dr["MainTopicName"]</td>
-                                    <td class="fw-medium">@dr["SubjectName"]</td>
-                                    <td class="fw-medium">@dr["Created"]</td>
-                                    <td class="fw-medium">@dr["Modified"]</td>
-                                    <td>
-                                        <div class="d-flex">
-                                            <div class="me-2">
-                                                <form method="post" asp-area="SubTopic" asp-controller="SubTopic" asp-action="SubTopicDelete">
-                                                    <input type="hidden" value="@Convert.ToInt32(dr["SubTopicID"])" name="SubTopicID" />
-                                                    <button onclick="return deleteAlert();" type="submit" class="btn btn-danger" value="Delete">Delete</button>
-                                                </form>
-                                            </div>
-                                            <div class="ms-2">
-                                                <form asp-area="SubTopic" asp-controller="SubTopic" asp-action="AddSubTopic">
-                                                    <input type="hidden" value="@Convert.ToInt32(dr["SubjectID"])" name="SubjectID" />
-                                                    <input type="hidden" value="@Convert.ToInt32(dr["SubTopicID"])" name="SubTopicID" />
-                                                    <button type="submit" class="btn btn-info" value="Update">Update</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </td>
+                                    <th rowspan="1"
+                                        colspan="1"> Action</th>
                                 </tr>
-                                }
+                            <tbody id="sample_2">
+                                    @foreach (DataRow dr in Model.Rows)
+                                    {
 
-                        </tbody>
-                    </table>
+                                    <tr class="">
+                                            @*<td class="control" tabindex="0" style="">
+                                    <button type="button">
+                                    <img src="~/img/icons/misc/plus.png" class="" style="height:20px">
+                                    </button>
+                                    </td>*@
+                                        <td class="sorting_1">
+                                            <div class="d-flex justify-content-start align-items-center product-name">
+
+                                                <div class="d-flex flex-column">
+                                                    <span class="text-nowrap text-heading fw-medium">
+                                                            @dr["SubTopicName"]
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="fw-medium">@dr["MainTopicName"]</td>
+                                        <td class="fw-medium">@dr["SubjectName"]</td>
+                                        <td class="fw-medium">@dr["Created"]</td>
+                                        <td class="fw-medium">@dr["Modified"]</td>
+                                        <td>
+                                            <div class="d-flex">
+                                                <div class="me-2">
+                                                    <form method="post" asp-area="SubTopic" asp-controller="SubTopic" asp-action="SubTopicDelete">
+                                                        <input type="hidden" value="@Convert.ToInt32(dr["SubTopicID"])" name="SubTopicID" />
+                                                        <button onclick="return deleteAlert();" type="submit" class="btn btn-danger" value="Delete">Delete</button>
+                                                    </form>
+                                                </div>
+                                                <div class="ms-2">
+                                                    <form asp-area="SubTopic" asp-controller="SubTopic" asp-action="AddSubTopic">
+                                                        <input type="hidden" value="@Convert.ToInt32(dr["SubjectID"])" name="SubjectID" />
+                                                        <input type="hidden" value="@Convert.ToInt32(dr["SubTopicID"])" name="SubTopicID" />
+                                                        <button type="submit" class="btn btn-info" value="Update">Update</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    }
+
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

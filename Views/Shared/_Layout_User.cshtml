@@ -12,7 +12,7 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Dashboard - Analytics | Materio - Bootstrap Material Design Admin Template</title>
+    <title>@ViewData["Title"]</title>
 
     <meta name="description" content="" />
 
@@ -106,7 +106,16 @@
                         </a>
                     </li>
 
+                    @*Testlist*@
+                    <li class="menu-item active mb-2">
+                        <a asp-area="MST_Test" asp-controller="MST_Test" asp-action="TestList"
+                           class="menu-link">
+                            <i class="menu-icon tf-icons mdi mdi-account-outline"></i>
+                            <div class="ms-3">TestquestionList</div>
+                        </a>
+                    </li>
                    
+
                 </ul>
             </aside>
             <!-- / Menu -->
